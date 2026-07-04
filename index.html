@@ -1,270 +1,1027 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Revisión de Contenido — Las Alitas De Siempre</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Las Alitas de Siempre — Calendario 30 Posts</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   :root {
-    --red: #c0392b; --red-dark: #96281b; --gold: #f39c12; --gold-dark: #d68910;
-    --bg: #0f0f0f; --surface: #1a1a1a; --surface2: #242424; --border: #2e2e2e;
-    --text: #f0f0f0; --muted: #888; --green: #27ae60;
+    --brand-red: #E63946;
+    --brand-red-dark: #C1121F;
+    --brand-black: #1A1A1A;
+    --brand-orange: #F97316;
+    --brand-orange-dark: #EA580C;
+    --brand-gold: #FBBF24;
+    --bg-dark: #111111;
+    --bg-card: #1A1A1A;
+    --bg-card-alt: #222222;
+    --text: #FFFFFF;
+    --text-muted: #AAAAAA;
+    --border: #333333;
+    --shadow: 0 4px 20px rgba(0,0,0,0.3);
+    --radius: 12px;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
-  header {
-    background: linear-gradient(135deg, var(--red-dark) 0%, #1a0a08 100%);
-    border-bottom: 2px solid var(--gold); padding: 24px 40px;
-    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg-dark);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
   }
-  .header-left { display: flex; align-items: center; gap: 16px; }
-  .logo-mark { width: 56px; height: 56px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; }
-  header h1 { font-size: 1.5rem; font-weight: 800; }
-  header p { font-size: 0.85rem; color: var(--gold); margin-top: 2px; }
-  .header-stats { display: flex; gap: 14px; flex-wrap: wrap; }
-  .stat-pill { background: rgba(255,255,255,0.07); border: 1px solid var(--border); border-radius: 20px; padding: 6px 16px; font-size: 0.8rem; }
-  .stat-pill span { font-weight: 700; }
-  .stat-pill.approved span { color: var(--green); } .stat-pill.rejected span { color: var(--red); } .stat-pill.pending span { color: var(--gold); }
-  .progress-bar-wrap { background: var(--surface); border-bottom: 1px solid var(--border); padding: 10px 40px; display: flex; align-items: center; gap: 16px; }
-  .progress-bar-track { flex: 1; background: var(--border); border-radius: 4px; height: 6px; }
-  .progress-bar-fill { height: 6px; border-radius: 4px; background: linear-gradient(90deg, var(--green), #2ecc71); transition: width 0.5s; width: 0%; }
-  .progress-label { font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
-  .toolbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 40px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-  .btn-filter { background: var(--surface2); border: 1px solid var(--border); color: var(--text); border-radius: 20px; padding: 5px 14px; cursor: pointer; font-size: 0.8rem; transition: all 0.2s; }
-  .btn-filter.active { background: var(--gold); color: #000; border-color: var(--gold); }
-  .toolbar-right { margin-left: auto; }
-  .btn-export { background: var(--gold); color: #000; border: none; border-radius: 8px; padding: 8px 18px; font-size: 0.85rem; font-weight: 700; cursor: pointer; }
-  .btn-export:hover { background: var(--gold-dark); }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 28px; padding: 32px 40px; max-width: 1600px; margin: 0 auto; }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: all 0.25s; position: relative; }
-  .card:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
-  .card.status-approved { border-color: var(--green); } .card.status-rejected { border-color: var(--red); }
-  .card-ribbon { position: absolute; top: 12px; right: 12px; z-index: 10; padding: 4px 12px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
-  .card.status-approved .card-ribbon { background: var(--green); color: #fff; opacity: 1; }
-  .card.status-rejected .card-ribbon { background: var(--red); color: #fff; opacity: 1; }
-  .card-img-wrap { position: relative; overflow: hidden; background: #111; aspect-ratio: 1/1; }
-  .card-img-wrap.portrait { aspect-ratio: 9/16; max-height: 420px; }
-  .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; cursor: zoom-in; }
-  .card:hover .card-img-wrap img { transform: scale(1.02); }
-  .day-badge { position: absolute; top: 12px; left: 12px; z-index: 5; background: rgba(0,0,0,0.75); border: 1px solid var(--gold); color: var(--gold); padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; }
-  .format-badge { position: absolute; bottom: 12px; left: 12px; z-index: 5; background: rgba(0,0,0,0.7); color: var(--muted); padding: 3px 9px; border-radius: 6px; font-size: 0.7rem; }
-  .card-body { padding: 18px; }
-  .card-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
-  .card-angle { font-size: 0.72rem; color: var(--gold); background: rgba(243,156,18,0.12); padding: 2px 8px; border-radius: 12px; } .card-dia { font-weight: 700; font-size: 0.85rem; }
-  .caption-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-  .caption-text { font-size: 0.82rem; color: #ccc; line-height: 1.55; border-left: 2px solid var(--border); padding-left: 10px; max-height: 80px; overflow: hidden; position: relative; transition: max-height 0.4s; }
-  .caption-text.expanded { max-height: 500px; }
-  .caption-text:not(.expanded)::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 24px; background: linear-gradient(transparent, var(--surface)); pointer-events: none; }
-  .btn-expand { background: none; border: none; color: var(--gold); cursor: pointer; font-size: 0.75rem; padding: 4px 0; display: block; margin-top: 4px; }
-  .hashtags { font-size: 0.72rem; color: #4a9fd4; margin-top: 8px; line-height: 1.6; }
-  .notes-wrap { margin-top: 14px; }
-  .notes-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
-  .notes-input { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); padding: 8px 10px; font-size: 0.82rem; resize: vertical; min-height: 60px; font-family: inherit; transition: border-color 0.2s; }
-  .notes-input:focus { outline: none; border-color: var(--gold); }
-  .card-actions { display: flex; gap: 10px; margin-top: 14px; }
-  .btn-approve, .btn-reject { flex: 1; border: none; border-radius: 10px; padding: 10px 0; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
-  .btn-approve { background: var(--surface2); color: var(--green); border: 1.5px solid var(--green); }
-  .btn-reject  { background: var(--surface2); color: var(--red);   border: 1.5px solid var(--red); }
-  .btn-approve:hover, .card.status-approved .btn-approve { background: var(--green); color: #fff; }
-  .btn-reject:hover,  .card.status-rejected .btn-reject  { background: var(--red); color: #fff; }
-  .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.92); align-items: center; justify-content: center; }
-  .lightbox.open { display: flex; }
-  .lightbox img { max-width: 92vw; max-height: 92vh; border-radius: 8px; object-fit: contain; }
-  .lightbox-close { position: absolute; top: 20px; right: 28px; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; opacity: 0.7; }
-  .summary-panel { background: var(--surface); border-top: 1px solid var(--border); padding: 28px 40px; }
-  .summary-title { font-size: 1.1rem; font-weight: 800; color: var(--gold); margin-bottom: 16px; }
-  .summary-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
-  .summary-item { background: var(--surface2); border-radius: 10px; padding: 12px 14px; }
-  .summary-item .s-day { font-size: 0.72rem; color: var(--muted); margin-bottom: 4px; }
-  .summary-item .s-status { font-weight: 700; font-size: 0.82rem; }
-  .summary-item .s-status.approved { color: var(--green); } .summary-item .s-status.rejected { color: var(--red); } .summary-item .s-status.pending { color: var(--gold); }
-  .summary-item .s-note { font-size: 0.73rem; color: var(--muted); margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .modal-overlay { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.85); align-items: center; justify-content: center; }
-  .modal-overlay.open { display: flex; }
-  .modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; }
-  .modal-box h2 { color: var(--gold); margin-bottom: 16px; }
-  .modal-box pre { background: var(--surface2); border-radius: 8px; padding: 14px; font-size: 0.75rem; white-space: pre-wrap; word-break: break-word; color: #ccc; max-height: 50vh; overflow-y: auto; line-height: 1.6; }
-  .modal-actions { display: flex; gap: 12px; margin-top: 16px; }
-  .btn-copy { background: var(--gold); color: #000; border: none; border-radius: 8px; padding: 9px 22px; font-weight: 700; cursor: pointer; }
-  .btn-close-modal { background: var(--surface2); color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 9px 22px; cursor: pointer; }
-  .hidden { display: none !important; }
-  @media (max-width:700px) { header,.grid,.toolbar,.progress-bar-wrap,.summary-panel{padding-left:16px;padding-right:16px} .grid{gap:18px;padding-top:20px;padding-bottom:20px} }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #000000 0%, #1A1A1A 50%, #000000 100%);
+    padding: 40px 20px 30px;
+    text-align: center;
+    border-bottom: 3px solid var(--brand-red);
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(230,57,70,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(249,115,22,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 1; }
+  .logo-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: contain;
+    margin-bottom: 12px;
+    border: 2px solid var(--brand-red);
+    padding: 4px;
+    background: white;
+  }
+  .header h1 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: white;
+    letter-spacing: -0.5px;
+  }
+  .header h1 span { color: var(--brand-red); }
+  .header .subtitle {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-top: 4px;
+  }
+  .header-links {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .header-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .header-links a.facebook {
+    background: #1877F2;
+    color: white;
+  }
+  .header-links a.menu {
+    background: var(--brand-orange);
+    color: white;
+  }
+  .header-links a:hover { transform: translateY(-1px); opacity: 0.9; }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    padding: 16px 20px;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .stat-item {
+    text-align: center;
+  }
+  .stat-item .num {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--brand-red);
+  }
+  .stat-item .label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* FILTER BAR */
+  .filter-bar {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 20px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover { border-color: var(--brand-red); color: white; }
+  .filter-btn.active {
+    background: var(--brand-red);
+    border-color: var(--brand-red);
+    color: white;
+  }
+
+  /* WEEK HEADER */
+  .week-header {
+    padding: 20px 20px 12px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--brand-orange);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .week-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--brand-orange), transparent);
+  }
+
+  /* POSTS GRID */
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 20px;
+    padding: 0 20px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* POST CARD */
+  .post-card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+  .post-card:hover {
+    border-color: var(--brand-red);
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
+  }
+  .post-card.approved {
+    border-color: #10B981;
+  }
+  .post-card.approved .card-badge { background: #10B981; }
+  .post-card.skipped {
+    border-color: #6B7280;
+    opacity: 0.7;
+  }
+  .post-card.skipped .card-badge { background: #6B7280; }
+
+  .card-image {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    display: block;
+    background: #000;
+  }
+
+  .card-image.reel {
+    aspect-ratio: 9/16;
+  }
+
+  .card-body {
+    padding: 16px;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .card-number {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--brand-red);
+    background: rgba(230,57,70,0.15);
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+  .card-badge {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    color: white;
+  }
+  .badge-promo { background: var(--brand-red); }
+  .badge-product { background: var(--brand-orange); }
+  .badge-brand { background: #10B981; }
+
+  .card-day {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--brand-orange);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+  }
+
+  .card-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .card-copy {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 12px;
+    max-height: 120px;
+    overflow-y: auto;
+    padding: 8px;
+    background: var(--bg-card-alt);
+    border-radius: 6px;
+  }
+  .card-copy::-webkit-scrollbar { width: 4px; }
+  .card-copy::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .card-links {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .card-links a {
+    font-size: 11px;
+    color: #1877F2;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .card-links a:hover { text-decoration: underline; }
+  .card-links a.menu-link { color: var(--brand-orange); }
+
+  /* NOTES FIELD */
+  .card-notes {
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+    background: var(--bg-card-alt);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 40px;
+  }
+  .card-notes:focus {
+    outline: none;
+    border-color: var(--brand-orange);
+  }
+  .card-notes::placeholder { color: #666; }
+
+  /* APPROVAL BUTTONS */
+  .card-actions {
+    display: flex;
+    gap: 8px;
+  }
+  .card-actions button {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-approve {
+    background: #10B981;
+    color: white;
+  }
+  .btn-approve:hover { background: #059669; }
+  .btn-approve:disabled { background: #064E3B; cursor: default; }
+  .btn-skip {
+    background: #6B7280;
+    color: white;
+  }
+  .btn-skip:hover { background: #4B5563; }
+  .btn-skip:disabled { background: #374151; cursor: default; }
+  .btn-reset {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border) !important;
+  }
+  .btn-reset:hover { border-color: var(--brand-red); color: white; }
+
+  .card-status {
+    display: none;
+    margin-top: 10px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+  }
+  .card-status.approved { display: block; background: rgba(16,185,129,0.15); color: #6EE7B7; }
+  .card-status.skipped { display: block; background: rgba(107,114,128,0.15); color: #9CA3AF; }
+
+  /* FOOTER ACTIONS */
+  .footer-actions {
+    position: sticky;
+    bottom: 0;
+    background: var(--bg-card);
+    border-top: 1px solid var(--border);
+    padding: 16px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    z-index: 10;
+  }
+  .btn-primary {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn-whatsapp { background: #25D366; color: white; }
+  .btn-whatsapp:hover { background: #1DA851; }
+  .btn-telegram { background: #0088CC; color: white; }
+  .btn-telegram:hover { background: #0077B5; }
+  .btn-export {
+    background: var(--brand-orange);
+    color: white;
+  }
+  .btn-export:hover { background: var(--brand-orange-dark); }
+
+  .promo-strip {
+    display: flex;
+    gap: 8px;
+    padding: 12px 20px;
+    background: linear-gradient(90deg, var(--brand-red), var(--brand-orange));
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .promo-strip span {
+    background: rgba(0,0,0,0.3);
+    padding: 4px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 600px) {
+    .posts-grid { grid-template-columns: 1fr; padding: 0 12px 40px; }
+    .header h1 { font-size: 22px; }
+    .stats-bar { gap: 16px; }
+    .stat-item .num { font-size: 16px; }
+    .footer-actions { flex-direction: column; align-items: stretch; }
+    .promo-strip { font-size: 10px; }
+  }
 </style>
 </head>
 <body>
-<header>
-  <div class="header-left">
-    <div class="logo-mark">🍗</div>
-    <div><h1>Las Alitas De Siempre</h1><p>Revisión de Contenido — Calendario 30 Días · Jun–Jul 2026</p></div>
-  </div>
-  <div class="header-stats">
-    <div class="stat-pill approved">✅ Aprobados: <span id="cnt-approved">0</span></div>
-    <div class="stat-pill rejected">❌ Cambios: <span id="cnt-rejected">0</span></div>
-    <div class="stat-pill pending">⏳ Pendientes: <span id="cnt-pending">30</span></div>
-  </div>
-</header>
-<div class="progress-bar-wrap">
-  <div class="progress-bar-track"><div class="progress-bar-fill" id="progress-fill"></div></div>
-  <span class="progress-label" id="progress-label">0 / 30 revisados</span>
-</div>
-<div class="toolbar">
-  <button class="btn-filter active" onclick="filterCards('all',this)">Todos (30)</button>
-  <button class="btn-filter" onclick="filterCards('pending',this)">Pendientes</button>
-  <button class="btn-filter" onclick="filterCards('approved',this)">✅ Aprobados</button>
-  <button class="btn-filter" onclick="filterCards('rejected',this)">❌ Con cambios</button>
-  <div class="toolbar-right"><button class="btn-export" onclick="openExport()">📋 Exportar Resumen</button></div>
-</div>
-<main class="grid" id="cards-grid"></main>
-<div class="summary-panel">
-  <div class="summary-title">📋 Resumen de Revisión</div>
-  <div class="summary-grid" id="summary-grid"></div>
-</div>
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
-  <img id="lightbox-img" src="" alt="Preview" />
-</div>
-<div class="modal-overlay" id="export-modal">
-  <div class="modal-box">
-    <h2>📋 Resumen Exportable</h2>
-    <pre id="export-text"></pre>
-    <div class="modal-actions">
-      <button class="btn-copy" onclick="copyExport()">📋 Copiar</button>
-      <button class="btn-close-modal" onclick="closeExport()">Cerrar</button>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-content">
+    <img src="posts/logo-las-alitas.png" alt="Las Alitas de Siempre" class="logo-img" loading="lazy">
+    <h1>Las <span>Alitas</span> de Siempre</h1>
+    <p class="subtitle">📅 Calendario Editorial · Julio 2026 · 30 Posts · "El Sabor Que Te Hace Volver"</p>
+    <div class="header-links">
+      <a href="https://www.facebook.com/lasalitasdesiempreoficial" target="_blank" class="facebook">📘 Síguenos en Facebook</a>
+      <a href="https://app.lasalitasdesiempre.com/homemenu" target="_blank" class="menu">🍗 Menú Digital</a>
     </div>
   </div>
 </div>
+
+<!-- PROMO STRIP -->
+<div class="promo-strip">
+  <span>🍟 LUNES: Papas gratis c/hamburguesas</span>
+  <span>🔥 MARTES: Boneless 2x1 $199</span>
+  <span>🌶️ MIÉRCOLES: Papas gratis c/boneless</span>
+  <span>🏆 JUEVES: 1kg Boneless + Papas $320</span>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item"><div class="num">30</div><div class="label">Posts</div></div>
+  <div class="stat-item"><div class="num" id="approved-count">0</div><div class="label">Aprobados</div></div>
+  <div class="stat-item"><div class="num" id="pending-count">30</div><div class="label">Pendientes</div></div>
+  <div class="stat-item"><div class="num">5</div><div class="label">Semanas</div></div>
+</div>
+
+<!-- FILTER -->
+<div class="filter-bar" id="filter-bar">
+  <button class="filter-btn active" data-filter="all">📋 Todas</button>
+  <button class="filter-btn" data-filter="promo">🔥 Promos</button>
+  <button class="filter-btn" data-filter="product">🍔 Productos</button>
+  <button class="filter-btn" data-filter="brand">💚 Brand</button>
+  <button class="filter-btn" data-filter="approved">✅ Aprobadas</button>
+  <button class="filter-btn" data-filter="pending">⏳ Pendientes</button>
+  <button class="filter-btn" data-filter="reels">🎬 Reels</button>
+</div>
+
+<!-- POSTS -->
+<div id="posts-container"></div>
+
+<!-- FOOTER -->
+<div class="footer-actions">
+  <button class="btn-primary btn-whatsapp" onclick="sendWhatsApp()">📱 Enviar a WhatsApp</button>
+  <button class="btn-primary btn-telegram" onclick="sendTelegram()">✈️ Enviar a Telegram</button>
+  <button class="btn-primary btn-export" onclick="exportJSON()">📥 Exportar JSON</button>
+</div>
+
 <script>
-const DAYS = [
-  {d:1,  date:'Lun 29 Jun',fmt:'square', angle:'Promo Lunes Burger',img:'posts/post-01.png',cap:'Los lunes en Las Alitas De Siempre se ponen buenos \uD83C\uDF54\nCompra tu hamburguesa y tus papas van GRATIS — bolsita blanca incluida.\nEmpieza la semana como se debe: con sabor y sin gastar de más.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y recógela calientita.',tags:'#LasAlitasDeSiempre #CdJuarez #PromoLunes #Hamburguesas #ComidaCdJuarez #PapasGratis #AntojoJuarez #FoodieJuarez'},
-  {d:2,  date:'Mar 30 Jun',fmt:'square', angle:'Promo Martes Boneless',img:'posts/post-02.png',cap:'Martes de boneless = martes feliz \uD83D\uDE0B\nBoneless para 2 personas por solo $199 — incluye papas, apio, zanahoria, catsup y ranch.\nElige tu salsa entre más de 15 opciones y disfruta acompañado.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y pasa por tu orden.',tags:'#LasAlitasDeSiempre #CdJuarez #PromoMartes #Boneless #ComidaCdJuarez #SalsasFavoritas #AntojoJuarez #FoodieJuarez'},
-  {d:3,  date:'Mié 1 Jul', fmt:'portrait',angle:'Promo Miércoles Papas',img:'posts/post-03.png',cap:'Miércoles con papas GRATIS \uD83C\uDF5F\uD83D\uDD25\nCompra tus boneless (de 10 a 50 piezas) y las papas corren por nuestra cuenta.\nPerfecto para una tarde entre amigos o para resolver la cena en familia.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y arma tu pedido.',tags:'#LasAlitasDeSiempre #CdJuarez #PromoMiercoles #Boneless #PapasGratis #ComidaCdJuarez #AntojoJuarez #FoodieJuarez'},
-  {d:4,  date:'Jue 2 Jul', fmt:'square', angle:'Promo Jueves Kilo',img:'posts/post-04.png',cap:'Un kilo de alitas + papas por $320. Sí, leíste bien \uD83C\uDF57\nIdeal para compartir en grupo, ver el partido, o simplemente porque se te antojó en serio.\nElige tu nivel de salsa: suave, medio o extremo.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y pide tu kilo hoy.',tags:'#LasAlitasDeSiempre #CdJuarez #PromoJueves #AlitasKilo #ComidaCdJuarez #AntojoJuarez #ParaCompartir #FoodieJuarez'},
-  {d:5,  date:'Vie 3 Jul', fmt:'portrait',angle:'Reto Picante / Amigos',img:'posts/post-05.png',cap:'Este viernes, disfruta con tus amigos \uD83C\uDF57\uD83D\uDD25\nPídate unas Alitas De Siempre, elige tu nivel de salsa y arranca bien el fin de semana.\nDel suave al extremo, hay un nivel para cada quien.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y arma tu viernes.',tags:'#LasAlitasDeSiempre #CdJuarez #ViernesDeAntojo #RetoPicante #Alitas #ComidaCdJuarez #AntojoJuarez #FoodieJuarez'},
-  {d:6,  date:'Sáb 4 Jul', fmt:'square', angle:'Combo Completo Valor',img:'posts/post-06.png',cap:'Cuando pides en Las Alitas De Siempre, no te falta nada \uD83D\uDCAF\nTu orden de alitas o boneless ya incluye papas, apio, zanahoria, catsup y ranch.\nTodo listo para disfrutar sin complicarte.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y pide tu combo completo.',tags:'#LasAlitasDeSiempre #CdJuarez #ComboCompleto #Alitas #Boneless #ComidaCdJuarez #AntojoJuarez #FoodieJuarez'},
-  {d:7,  date:'Dom 5 Jul', fmt:'portrait',angle:'Social Proof Familiar',img:'posts/post-07.png',cap:'Los domingos saben mejor en buena compañía \uD83D\uDC68\u200D\uD83D\uDC69\u200D\uD83D\uDC67\u200D\uD83D\uDC66\nFamilias y amigos en Cd. Juárez ya saben que el domingo es para alitas y buena charla.\nCierra la semana como se debe.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y arma tu domingo.',tags:'#LasAlitasDeSiempre #CdJuarez #DomingoEnFamilia #Alitas #Boneless #ComidaCdJuarez #AntojoJuarez #FoodieJuarez'},
-  {d:8,  date:'Lun 6 Jul', fmt:'square', angle:'Promo Lunes Burger',img:'posts/post-08.png',cap:'Otro lunes, otra burger con papas gratis \uD83C\uDF54\uD83C\uDF5F\nPrueba la Titán del Sabor: bistec jugoso, queso derretido, jamón y ese toque que la hace inolvidable.\nTus papas van por nuestra cuenta.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y arranca bien la semana.',tags:'#LasAlitasDeSiempre #CdJuarez #PromoLunes #TitanDelSabor #Hamburguesas #ComidaCdJuarez #PapasGratis #AntojoJuarez'},
-  {d:9,  date:'Mar 7 Jul', fmt:'square', angle:'Promo Martes Boneless',img:'posts/post-09.png',cap:'Boneless recién hechos, para 2, por $199 \uD83D\uDD25\nCrujientes por fuera, jugosos por dentro, con papas, apio, zanahoria, catsup y ranch incluidos.\nEl antojo de martes ya tiene solución.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y recoge tu orden.',tags:'#LasAlitasDeSiempre #CdJuarez #PromoMartes #Boneless #ComidaCdJuarez #AntojoJuarez #FoodieJuarez #ParaCompartir'},
-  {d:10, date:'Mié 8 Jul', fmt:'portrait',angle:'Elige Tu Nivel',img:'posts/post-10.png',cap:'¿Suave, medio o extremo? Tú decides \uD83C\uDF36\uFE0F\nSuave: Smoky BBQ, Pimienta Limón, Parmesanas, Mostaza Dulce.\nMedio: Tamarindo Chipotle, Jalapeño Ranch, Jamaica Chipotle, Fresa Chipotle, Coco Habanero.\nExtremo: Habanero Ranch, Buffalo, Mango Habanero, Piña Habanero.\n📍 Plaza de las Américas · 📞 656.488.7824',tags:'#LasAlitasDeSiempre #CdJuarez #SalsasFavoritas #EligeTuNivel #Alitas #Boneless #ComidaCdJuarez #AntojoJuarez'},
-  {d:11, date:'Jue 9 Jul', fmt:'square', angle:'Promo Jueves Kilo',img:'posts/post-11.png',cap:'Jueves de kilo: 1kg de alitas + papas a $320 \uD83C\uDF57\uD83C\uDF5F\nPerfecto para la reunión, el antojo en grande, o porque te lo mereces.\nCon tu salsa favorita entre más de 15 opciones.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y pide tu kilo.',tags:'#LasAlitasDeSiempre #CdJuarez #PromoJueves #AlitasKilo #ComidaCdJuarez #AntojoJuarez #ParaCompartir #FoodieJuarez'},
-  {d:12, date:'Vie 10 Jul',fmt:'portrait',angle:'Dolor: Espera Larga',img:'posts/post-12.png',cap:'¿Cansado de esperar para que te den tus alitas? \uD83D\uDE24\nAquí llamas, ordenas y cuando llegas, tu pedido ya está listo.\nSin filas, sin esperas largas — solo tú, tu antojo y tu pedido caliente.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y olvídate de esperar.',tags:'#LasAlitasDeSiempre #CdJuarez #PickupRapido #SinEsperas #Alitas #Boneless #ComidaCdJuarez #AntojoJuarez'},
-  {d:13, date:'Sáb 11 Jul',fmt:'square', angle:'Antojo Puro / Amigos',img:'posts/post-13.png',cap:'Este sábado, antójate sin pena \uD83C\uDF57\nReúne a tus amigos, pon la película o el partido, y pídate unas Alitas De Siempre.\nEl antojo no espera y nosotros tampoco te hacemos esperar.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y arma tu sábado.',tags:'#LasAlitasDeSiempre #CdJuarez #AntojoJuarez #Alitas #ComidaCdJuarez #FoodieJuarez #SabadoDeAntojo #Boneless'},
-  {d:14, date:'Dom 12 Jul',fmt:'portrait',angle:'Urgencia Fin de Semana',img:'posts/post-14.png',cap:'Cerramos a las 7:30pm — no te quedes sin tu antojo \u23F0\nAprovecha el domingo antes de que se acabe el día.\nAlitas, boneless o hamburguesas, listas para recoger.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 antes de que cerremos.',tags:'#LasAlitasDeSiempre #CdJuarez #DomingoDeAntojo #Alitas #Boneless #ComidaCdJuarez #AntojoJuarez #UltimaLlamada'},
-  {d:15, date:'Lun 13 Jul',fmt:'square', angle:'Promo Lunes Burger',img:'posts/post-15.png',cap:'Ya sabes: lunes con burger y papas gratis \uD83C\uDF54\nPrueba la Sabores Supremos y arranca la semana con todo el sabor.\nTus papas, por nuestra cuenta.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y ordena tu lunes.',tags:'#LasAlitasDeSiempre #CdJuarez #PromoLunes #SaboresSupremos #Hamburguesas #ComidaCdJuarez #PapasGratis #AntojoJuarez'},
-  {d:16, date:'Mar 14 Jul',fmt:'square', angle:'Promo Martes Boneless',img:'posts/post-16.png',cap:'Otro martes, otro antojo resuelto \uD83D\uDE0B\nBoneless para 2 personas por solo $199 — con papas, apio, zanahoria, catsup y ranch incluidos.\nElige tu salsa y disfruta acompañado.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y pasa por tu orden.',tags:'#LasAlitasDeSiempre #CdJuarez #PromoMartes #Boneless #ComidaCdJuarez #AntojoJuarez #FoodieJuarez #ParaCompartir'},
-  {d:17, date:'Mié 15 Jul',fmt:'square', angle:'Mezcla Tus Salsas',img:'posts/post-17.png',cap:'¿Ya probaste mezclar tus salsas favoritas? \uD83C\uDF36\uFE0F\uD83C\uDF6F\nTamarindo Chipotle con Mango Habanero, o Coco Habanero con Buffalo.\nHoy además, tus boneless (10-50 pzas) vienen con papas gratis.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y arma tu combo de salsas.',tags:'#LasAlitasDeSiempre #CdJuarez #SalsasFavoritas #MezclaTusSalsas #Boneless #ComidaCdJuarez #AntojoJuarez #FoodieJuarez'},
-  {d:18, date:'Jue 16 Jul',fmt:'portrait',angle:'Promo Jueves Kilo',img:'posts/post-18.png',cap:'Jueves de kilo otra vez \uD83C\uDF57 1kg de alitas + papas a $320\nPara la reunión, para ver el partido, o porque hoy se antoja en grande.\nTu salsa favorita, entre más de 15 opciones, te está esperando.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y pide tu kilo.',tags:'#LasAlitasDeSiempre #CdJuarez #PromoJueves #AlitasKilo #ComidaCdJuarez #AntojoJuarez #ParaCompartir #FoodieJuarez'},
-  {d:19, date:'Vie 17 Jul',fmt:'portrait',angle:'Detrás de la Cocina',img:'posts/post-19.png',cap:'Todo se prepara al momento, justo para ti \uD83D\uDC68‍\uD83C\uDF73\nNada de comida vieja esperando en una vitrina — tus alitas se cocinan cuando llamas.\nAsí sabe la diferencia.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y pide tu pedido fresco.',tags:'#LasAlitasDeSiempre #CdJuarez #FrescoSiempre #Alitas #ComidaCdJuarez #DetrasDeCocina #AntojoJuarez #FoodieJuarez'},
-  {d:20, date:'Sáb 18 Jul',fmt:'square', angle:'Dolor: Porciones Chicas',img:'posts/post-20.png',cap:'¿Cansado de pagar caro por porciones chicas? \uD83D\uDE29\nAquí tu orden viene completa: alitas o boneless con papas, apio, zanahoria, catsup y ranch — sin sorpresas.\nLo que ves es lo que te llevas.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y pide un combo que sí rinde.',tags:'#LasAlitasDeSiempre #CdJuarez #ComboCompleto #Alitas #Boneless #ComidaCdJuarez #AntojoJuarez #FoodieJuarez'},
-  {d:21, date:'Dom 19 Jul',fmt:'portrait',angle:'Humor Antojo',img:'posts/post-21.png',cap:'Ese momento en que ves la hora y ya sabes que toca pedir alitas \uD83D\uDE02\uD83C\uDF57\nNo luches contra el antojo, ríndete con gusto.\nNosotros ya estamos listos para tu pedido.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y dale gusto al antojo.',tags:'#LasAlitasDeSiempre #CdJuarez #AntojoJuarez #HumorComida #Alitas #ComidaCdJuarez #DomingoDeAntojo #FoodieJuarez'},
-  {d:22, date:'Lun 20 Jul',fmt:'square', angle:'Promo Lunes Burger',img:'posts/post-22.png',cap:'Lunes de burger con papas gratis, como siempre \uD83C\uDF54\uD83C\uDF5F\nPrueba la Crispi Chicken: crujiente, jugosa y con todo el sabor que se te antoja.\nTus papas, por nuestra cuenta.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y arranca tu semana con sabor.',tags:'#LasAlitasDeSiempre #CdJuarez #PromoLunes #CrispiChicken #Hamburguesas #ComidaCdJuarez #PapasGratis #AntojoJuarez'},
-  {d:23, date:'Mar 21 Jul',fmt:'square', angle:'Promo Martes Boneless',img:'posts/post-23.png',cap:'Martes con boneless dorados y crujientes \uD83C\uDF57 para 2 a $199\nIncluye papas, apio, zanahoria, catsup y ranch.\nElige tu salsa y comparte el antojo.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y recoge tu orden.',tags:'#LasAlitasDeSiempre #CdJuarez #PromoMartes #Boneless #ComidaCdJuarez #AntojoJuarez #FoodieJuarez #ParaCompartir'},
-  {d:24, date:'Mié 22 Jul',fmt:'portrait',angle:'Burger Bañada en Salsa',img:'posts/post-24.png',cap:'¿Ya probaste tu burger bañada en tu salsa favorita? \uD83E\uDD24\nPor solo $10 extra, le agregas ese toque picosito o dulce que la hace inigualable.\nHoy además, tus boneless (10-50 pzas) vienen con papas gratis.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y arma tu burger perfecta.',tags:'#LasAlitasDeSiempre #CdJuarez #BurgerConSalsa #Hamburguesas #ComidaCdJuarez #AntojoJuarez #FoodieJuarez #SalsasFavoritas'},
-  {d:25, date:'Jue 23 Jul',fmt:'square', angle:'Promo Jueves Kilo',img:'posts/post-25.png',cap:'Jueves de antojo grande: 1kg de alitas + papas a $320 \uD83C\uDF57\nPara compartir, para celebrar, o para ti solito si el antojo es serio.\nTu salsa, tu nivel, tu manera.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y pide tu kilo.',tags:'#LasAlitasDeSiempre #CdJuarez #PromoJueves #AlitasKilo #ComidaCdJuarez #AntojoJuarez #ParaCompartir #FoodieJuarez'},
-  {d:26, date:'Vie 24 Jul',fmt:'portrait',angle:'Antes/Después del Hambre',img:'posts/post-26.png',cap:'Antes: el hambre te está ganando \uD83D\uDE29\nDespués: una orden de Las Alitas De Siempre en la mesa \uD83D\uDE0C\uD83C\uDF57\nNo dejes que el antojo te gane este viernes.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y resuelve el antojo.',tags:'#LasAlitasDeSiempre #CdJuarez #ViernesDeAntojo #AntesYDespues #Alitas #ComidaCdJuarez #AntojoJuarez #FoodieJuarez'},
-  {d:27, date:'Sáb 25 Jul',fmt:'square', angle:'Plaza de las Américas Local',img:'posts/post-27.png',cap:'Aquí en Plaza de las Américas, somos parte de tu antojo desde siempre \uD83C\uDFE0\uD83C\uDF57\nPasa por tu pedido o llama y te lo dejamos listo.\nCerca de ti, con el sabor que ya conoces.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y pasa por tu pedido.',tags:'#LasAlitasDeSiempre #CdJuarez #PlazaDeLasAmericas #Alitas #ComidaCdJuarez #AntojoJuarez #FoodieJuarez #SabadoDeAntojo'},
-  {d:28, date:'Dom 26 Jul',fmt:'portrait',angle:'Social Proof Familiar',img:'posts/post-28.png',cap:'Así cerramos el fin de semana en Las Alitas De Siempre \uD83C\uDF57\uD83D\uDC68‍\uD83D\uDC69‍\uD83D\uDC67‍\uD83D\uDC66\nAmigos, familia, buena charla y el sabor de siempre en la mesa.\nÚnete tú también este domingo.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y cierra tu fin de semana en grande.',tags:'#LasAlitasDeSiempre #CdJuarez #DomingoEnFamilia #Alitas #Boneless #ComidaCdJuarez #AntojoJuarez #FoodieJuarez'},
-  {d:29, date:'Lun 27 Jul',fmt:'square', angle:'Promo Lunes Burger',img:'posts/post-29.png',cap:'Una semana más, una burger más, papas gratis como siempre \uD83C\uDF54\uD83C\uDF5F\nEmpieza tu lunes con sabor y sin gastar de más.\nTus papas, por nuestra cuenta.\n📍 Plaza de las Américas\n📞 Llámenos al 656.488.7824 y arranca bien la semana.',tags:'#LasAlitasDeSiempre #CdJuarez #PromoLunes #Hamburguesas #ComidaCdJuarez #PapasGratis #AntojoJuarez #FoodieJuarez'},
-  {d:30, date:'Mar 28 Jul',fmt:'square', angle:'CTA Directo Pickup',img:'posts/post-30.png',cap:'30 días de antojo y apenas estamos empezando \uD83C\uDF57\uD83D\uDD25\nAlitas, boneless, hamburguesas y más de 15 salsas para elegir.\nLlama, ordena y recoge tu pedido calientito.\n📍 Plaza de las Américas\n📞 656.488.7824 — Las Alitas De Siempre.',tags:'#LasAlitasDeSiempre #CdJuarez #Alitas #Boneless #Hamburguesas #ComidaCdJuarez #AntojoJuarez #FoodieJuarez'}
+// ─── POST DATA ───
+const posts = [
+  {
+    "id": 1,
+    "day": "MIÉRCOLES",
+    "week": 1,
+    "type": "promo",
+    "title": "🌶️ Miércoles de boneless con papas gratis",
+    "tag": "MIÉRCOLES",
+    "copy": "PAPAS GRATIS\n\nPapas chicas GRATIS con paquetes de boneless de 10, 20, 30, 40 o 50 piezas. Elige tus salsas y arma el centro de mesa perfecto.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #Boneless #PapasGratis #MiércolesDeBoneless",
+    "img": "post-01-lifestyle"
+  },
+  {
+    "id": 2,
+    "day": "JUEVES",
+    "week": 1,
+    "type": "promo",
+    "title": "🏆 Mega Jueves para compartir",
+    "tag": "JUEVES",
+    "copy": "1KG BONELESS + PAPAS $320\n\n1 kg de boneless + papas con 3 sabores diferentes por solo $320. Ideal para la sala, el partido y la mesa llena.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #MegaJueves #1KgBoneless #ParaCompartir",
+    "img": "post-02-lifestyle"
+  },
+  {
+    "id": 3,
+    "day": "VIERNES",
+    "week": 1,
+    "type": "product",
+    "title": "🍔 Viernes de hamburguesas bien servidas",
+    "tag": "VIERNES",
+    "copy": "7 HAMBURGUESAS PARA ELEGIR\n\nClassica $60, Doble $90, Suprema $95, Titan $105, Costra $105, Crispy Chicken $100 y Pollo Plancha $90. Baña tu burger con tu salsa favorita por $10 extra.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #Hamburguesas #ViernesDeAntojo #CrispyChicken",
+    "img": "post-03-lifestyle"
+  },
+  {
+    "id": 4,
+    "day": "SÁBADO",
+    "week": 1,
+    "type": "product",
+    "title": "🍗 Sábado de alitas, boneless y salsas",
+    "tag": "SÁBADO",
+    "copy": "13 SALSAS PARA TU ANTOJO\n\nAlitas $185 o Boneless $175 con papas, apio, zanahoria, catsup y ranch. Hay niveles suave, medio y extremo para todos.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #Alitas #Boneless #Papaneless #Salsas",
+    "img": "post-04-lifestyle"
+  },
+  {
+    "id": 5,
+    "day": "DOMINGO",
+    "week": 1,
+    "type": "brand",
+    "title": "💚 Domingo familiar con sabor de casa",
+    "tag": "DOMINGO",
+    "copy": "EL SABOR QUE TE HACE VOLVER\n\nGracias por compartir la mesa con nosotros. Pide tus alitas, boneless, papas o hamburguesas y disfruta un domingo sin cocinar.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #DomingoFamiliar #ElSaborQueTeHaceVolver #Familia",
+    "img": "post-05-lifestyle"
+  },
+  {
+    "id": 6,
+    "day": "LUNES",
+    "week": 1,
+    "type": "promo",
+    "title": "🍟 Lunes de burger: papas van por cuenta de la casa",
+    "tag": "LUNES",
+    "copy": "LUNES DE PAPAS GRATIS\n\nPapas chicas GRATIS con cualquier hamburguesa: Classica, Doble, Suprema, Titan, Costra, Pollo Plancha o Crispy Chicken. Empieza la semana con una burger bien servida y ese sabor que te hace volver.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #LunesDePapasGratis #Hamburguesas #PlazaDeLasAmericas",
+    "img": "post-06-lifestyle"
+  },
+  {
+    "id": 7,
+    "day": "MARTES",
+    "week": 1,
+    "type": "promo",
+    "title": "🔥 Martes de Boneless 2x1",
+    "tag": "MARTES",
+    "copy": "BONELESS 2X1 POR $199\n\nLa promo que convierte el martes en plan: orden de Boneless 2x1 por solo $199. Incluye papas, apio, zanahoria, catsup y ranch con 2 salsas a escoger.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #Boneless2x1 #MartesDeBoneless #Salsas",
+    "img": "post-07-lifestyle"
+  },
+  {
+    "id": 8,
+    "day": "MIÉRCOLES",
+    "week": 2,
+    "type": "promo",
+    "title": "🍟 Mitad de semana, antojo completo",
+    "tag": "MIÉRCOLES",
+    "copy": "PAPAS GRATIS + BONELESS\n\nTodos los paquetes de boneless de 10 a 50 piezas incluyen papas chicas gratis. Perfecto para ver el partido, la peli o la serie en casa.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #Boneless #PapasGratis #MiércolesDeBoneless",
+    "img": "post-08-lifestyle"
+  },
+  {
+    "id": 9,
+    "day": "JUEVES",
+    "week": 2,
+    "type": "promo",
+    "title": "🔥 Jueves grande: un kilo de sabor",
+    "tag": "JUEVES",
+    "copy": "1KG + PAPAS + 3 SABORES\n\nMega Jueves con 1 kg de boneless, papas y 3 salsas por $320. Elige Buffalo, BBQ, Habanero Ranch o la que más se te antoje.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #MegaJueves #1KgBoneless #ParaCompartir",
+    "img": "post-09-lifestyle"
+  },
+  {
+    "id": 10,
+    "day": "VIERNES",
+    "week": 2,
+    "type": "product",
+    "title": "🧀 La Costra y la Titan se roban la mesa",
+    "tag": "VIERNES",
+    "copy": "BURGERS CON MUCHO SABOR\n\nSi vienes con hambre, pide Costra con queso menonita o Titan con bisteck, jamón y winnie. Viernes de antojo cumplido.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #Hamburguesas #ViernesDeAntojo #CrispyChicken",
+    "img": "post-10-lifestyle"
+  },
+  {
+    "id": 11,
+    "day": "SÁBADO",
+    "week": 2,
+    "type": "product",
+    "title": "🥔 Papaneless para compartir en la sala",
+    "tag": "SÁBADO",
+    "copy": "PAPAS CARGADAS CON TODO\n\nCama de papas, proteína, queso y salsa favorita por $175. El sábado sabe mejor con la mesa llena.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #Alitas #Boneless #Papaneless #Salsas",
+    "img": "post-11-lifestyle"
+  },
+  {
+    "id": 12,
+    "day": "DOMINGO",
+    "week": 2,
+    "type": "brand",
+    "title": "👨‍👩‍👧‍👦 Plan familiar listo",
+    "tag": "DOMINGO",
+    "copy": "TODOS EN LA MESA\n\nPara los peques, hamburguesas; para compartir, boneless; para completar, papas. Domingo perfecto en Plaza de las Americas.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #DomingoFamiliar #ElSaborQueTeHaceVolver #Familia",
+    "img": "post-12-lifestyle"
+  },
+  {
+    "id": 13,
+    "day": "LUNES",
+    "week": 2,
+    "type": "promo",
+    "title": "🍔 Tu lunes merece hamburguesa + papas",
+    "tag": "LUNES",
+    "copy": "PAPAS GRATIS CON TU BURGER\n\nElige tu hamburguesa favorita y nosotros ponemos las papas chicas gratis. ¿Classica de $60 o Titan de $105? Tú decides cómo arrancas la semana.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #LunesDePapasGratis #Hamburguesas #PlazaDeLasAmericas",
+    "img": "post-13-lifestyle"
+  },
+  {
+    "id": 14,
+    "day": "MARTES",
+    "week": 2,
+    "type": "promo",
+    "title": "🍗 Hoy se comparten boneless",
+    "tag": "MARTES",
+    "copy": "2X1 BONELESS $199\n\nPide Boneless 2x1 por $199 y arma el plan con tu persona favorita. Elige entre 13 salsas: desde Smoky BBQ hasta Mango Habanero.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #Boneless2x1 #MartesDeBoneless #Salsas",
+    "img": "post-14-lifestyle"
+  },
+  {
+    "id": 15,
+    "day": "MIÉRCOLES",
+    "week": 3,
+    "type": "promo",
+    "title": "🔥 Boneless para compartir",
+    "tag": "MIÉRCOLES",
+    "copy": "PAPAS GRATIS EN PAQUETES\n\nPide paquetes de boneless 10/20/30/40/50 y recibe papas chicas gratis. Combina sabores suaves, medios o extremos.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #Boneless #PapasGratis #MiércolesDeBoneless",
+    "img": "post-15-lifestyle"
+  },
+  {
+    "id": 16,
+    "day": "JUEVES",
+    "week": 3,
+    "type": "promo",
+    "title": "🍗 El plan fuerte del jueves",
+    "tag": "JUEVES",
+    "copy": "1KG BONELESS $320\n\nBoneless en serio: 1 kg + papas + 3 sabores diferentes por $320. Reúne a los cuates y prende la tele.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #MegaJueves #1KgBoneless #ParaCompartir",
+    "img": "post-16-lifestyle"
+  },
+  {
+    "id": 17,
+    "day": "VIERNES",
+    "week": 3,
+    "type": "product",
+    "title": "🐔 Crispy Chicken para cerrar la semana",
+    "tag": "VIERNES",
+    "copy": "CRUJE DESDE EL PRIMER BOCADO\n\nPollo empanizado, queso, vegetales frescos y todo el sabor de Las Alitas. Perfecta para tu noche de películas en casa.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #Hamburguesas #ViernesDeAntojo #CrispyChicken",
+    "img": "post-17-lifestyle"
+  },
+  {
+    "id": 18,
+    "day": "SÁBADO",
+    "week": 3,
+    "type": "product",
+    "title": "🍟 Para los amantes de las papas",
+    "tag": "SÁBADO",
+    "copy": "PAPAS EN TODOS LOS ESTILOS\n\nIndividuales, con queso, rancheras, Habanero Ranch, Jalapeño Ranch o Papaneless. Elige tu versión favorita y comparte.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #Alitas #Boneless #Papaneless #Salsas",
+    "img": "post-18-lifestyle"
+  },
+  {
+    "id": 19,
+    "day": "DOMINGO",
+    "week": 3,
+    "type": "brand",
+    "title": "🙌 Gracias por elegirnos",
+    "tag": "DOMINGO",
+    "copy": "HECHO PARA COMPARTIR\n\nCada pedido cuenta una historia: familia, amigos y antojos que se vuelven tradición. Las Alitas de Siempre te espera hoy.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #DomingoFamiliar #ElSaborQueTeHaceVolver #Familia",
+    "img": "post-19-lifestyle"
+  },
+  {
+    "id": 20,
+    "day": "LUNES",
+    "week": 3,
+    "type": "promo",
+    "title": "🔥 Arranca con antojo completo",
+    "tag": "LUNES",
+    "copy": "LUNES CON PAPAS GRATIS\n\nTodas las hamburguesas participan: carne, pollo, crispy, doble o costra. Pide la tuya y acompáñala con papas chicas gratis.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #LunesDePapasGratis #Hamburguesas #PlazaDeLasAmericas",
+    "img": "post-20-lifestyle"
+  },
+  {
+    "id": 21,
+    "day": "MARTES",
+    "week": 3,
+    "type": "promo",
+    "title": "🔥 El martes sabe a doble",
+    "tag": "MARTES",
+    "copy": "BONELESS 2X1\n\nDos órdenes, un precio: Boneless 2x1 por $199. Crujientes, bañados en salsa y listos para compartir.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #Boneless2x1 #MartesDeBoneless #Salsas",
+    "img": "post-21-lifestyle"
+  },
+  {
+    "id": 22,
+    "day": "MIÉRCOLES",
+    "week": 4,
+    "type": "promo",
+    "title": "🌶️ Miércoles de salsa y crunch",
+    "tag": "MIÉRCOLES",
+    "copy": "BONELESS + PAPAS GRATIS\n\nPapas chicas gratis con tus paquetes de boneless. Pide tus piezas, escoge salsas y disfruta sin complicarte.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #Boneless #PapasGratis #MiércolesDeBoneless",
+    "img": "post-22-lifestyle"
+  },
+  {
+    "id": 23,
+    "day": "JUEVES",
+    "week": 4,
+    "type": "promo",
+    "title": "🏆 Cierra la semana laboral a lo grande",
+    "tag": "JUEVES",
+    "copy": "MEGA JUEVES $320\n\n1 kg de boneless con papas y 3 sabores diferentes. Mucho sabor, buena porción y cero pretextos para compartir.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #MegaJueves #1KgBoneless #ParaCompartir",
+    "img": "post-23-lifestyle"
+  },
+  {
+    "id": 24,
+    "day": "VIERNES",
+    "week": 4,
+    "type": "product",
+    "title": "🍔 Viernes sin cocinar",
+    "tag": "VIERNES",
+    "copy": "HAMBURGUESAS DESDE $60\n\nPide tu favorita, acomódate en la sala y disfruta. Menú completo en la app para elegir sin complicarte.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #Hamburguesas #ViernesDeAntojo #CrispyChicken",
+    "img": "post-24-lifestyle"
+  },
+  {
+    "id": 25,
+    "day": "SÁBADO",
+    "week": 4,
+    "type": "product",
+    "title": "🍗 Combo casero para el fin",
+    "tag": "SÁBADO",
+    "copy": "ALITAS + BONELESS + PAPAS\n\nArma una mesa con alitas, boneless, papas y salsas para todos. La sala se convierte en el mejor punto de reunión.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #Alitas #Boneless #Papaneless #Salsas",
+    "img": "post-25-lifestyle"
+  },
+  {
+    "id": 26,
+    "day": "DOMINGO",
+    "week": 4,
+    "type": "brand",
+    "title": "🏠 Domingo de sala, tele y alitas",
+    "tag": "DOMINGO",
+    "copy": "ANTOJO SIN SALIR DEL PLAN\n\nReúne a la familia, pon la película y pide el menú que a todos se les antoja. Así se disfruta el cierre de semana.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #DomingoFamiliar #ElSaborQueTeHaceVolver #Familia",
+    "img": "post-26-lifestyle"
+  },
+  {
+    "id": 27,
+    "day": "LUNES",
+    "week": 4,
+    "type": "promo",
+    "title": "🍟 Lunes para los que sí saben",
+    "tag": "LUNES",
+    "copy": "BURGERS + PAPAS GRATIS\n\nCualquier hamburguesa del menú incluye papas chicas gratis. Ven por la tuya a Plaza de las Americas o revisa el menú digital.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #LunesDePapasGratis #Hamburguesas #PlazaDeLasAmericas",
+    "img": "post-27-lifestyle"
+  },
+  {
+    "id": 28,
+    "day": "MARTES",
+    "week": 4,
+    "type": "promo",
+    "title": "🌶️ Martes con salsa extra",
+    "tag": "MARTES",
+    "copy": "2X1 POR $199\n\nBoneless 2x1 por $199 con papas, ranch, apio y zanahoria. Tú pones el hambre, nosotros ponemos el sabor.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #Boneless2x1 #MartesDeBoneless #Salsas",
+    "img": "post-28-lifestyle"
+  },
+  {
+    "id": 29,
+    "day": "MIÉRCOLES",
+    "week": 5,
+    "type": "promo",
+    "title": "🌶️ Miércoles de boneless con papas gratis",
+    "tag": "MIÉRCOLES",
+    "copy": "PAPAS GRATIS\n\nPapas chicas GRATIS con paquetes de boneless de 10, 20, 30, 40 o 50 piezas. Elige tus salsas y arma el centro de mesa perfecto.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #Boneless #PapasGratis #MiércolesDeBoneless",
+    "img": "post-29-lifestyle"
+  },
+  {
+    "id": 30,
+    "day": "JUEVES",
+    "week": 5,
+    "type": "promo",
+    "title": "🏆 Mega Jueves para compartir",
+    "tag": "JUEVES",
+    "copy": "1KG BONELESS + PAPAS $320\n\n1 kg de boneless + papas con 3 sabores diferentes por solo $320. Ideal para la sala, el partido y la mesa llena.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
+    "hashtags": "#LasAlitasDeSiempre #MegaJueves #1KgBoneless #ParaCompartir",
+    "img": "post-30-lifestyle"
+  }
 ];
-const states={};DAYS.forEach(({d})=>states[d]='pending');
-const grid=document.getElementById('cards-grid');
-DAYS.forEach(({d,date,fmt,angle,img,cap,tags})=>{
-  const fl=fmt==='portrait'?'9:16 · Reel/Story':'1:1 · Feed';
-  const capHtml=cap.replace(/\n/g,'<br>');
-  grid.innerHTML+=`<div class="card" id="card-${d}" data-day="${d}">
-    <div class="card-ribbon" id="ribbon-${d}">✅ APROBADO</div>
-    <div class="card-img-wrap ${fmt}">
-      <span class="day-badge">Día ${d}</span>
-      <span class="format-badge">${fl}</span>
-      <img src="${img}" alt="Día ${d}" loading="lazy" onclick="openLightbox('${img}')" />
-    </div>
-    <div class="card-body">
-      <div class="card-meta"><span class="card-dia">${date}</span><span class="card-angle">${angle}</span></div>
-      <div class="caption-label">Caption</div>
-      <div class="caption-text" id="cap-${d}">${capHtml}</div>
-      <button class="btn-expand" onclick="toggleCap(${d},this)">Ver más ▾</button>
-      <div class="hashtags">${tags}</div>
-      <div class="notes-wrap">
-        <div class="notes-label">Notas / cambios</div>
-        <textarea class="notes-input" id="note-${d}" placeholder="Escribe tus comentarios o cambios para este post..." oninput="updateSummary()"></textarea>
-      </div>
-      <div class="card-actions">
-        <button class="btn-approve" id="btn-a-${d}" onclick="setStatus(${d},'approved')">✅ Aprobar</button>
-        <button class="btn-reject" id="btn-r-${d}" onclick="setStatus(${d},'rejected')">✏️ Pedir cambios</button>
-      </div>
-    </div>
-  </div>`;
+
+// ─── REELS DATA ───
+const reels = posts.map(p => ({
+  ...p,
+  img: `post-${String(p.id).padStart(2,'0')}-reel`
+}));
+
+// ─── STATE ───
+const STORAGE_KEY = 'lasAlitasApprovalState';
+let state = loadState();
+let currentFilter = 'all';
+
+const VERSION = 12;
+const WEEK_NAMES = { 1:'Semana 1 · Introducción + Promos Fuertes', 2:'Semana 2 · Ciclo Completo de Promos', 3:'Semana 3 · Productos + Promos', 4:'Semana 4 · Ritmo Constante', 5:'Semana 5 · Cierre del Mes' };
+const WEEK_ICONS = { 1:'1️⃣', 2:'2️⃣', 3:'3️⃣', 4:'4️⃣', 5:'5️⃣' };
+
+// ─── RENDER ───
+function render() {
+  captureVisibleNotes();
+  const container = document.getElementById('posts-container');
+  let currentWeek = 0;
+  let html = '';
+
+  const isReels = currentFilter === 'reels';
+  const data = isReels ? reels : posts;
+
+  data.forEach(p => {
+    if (currentFilter !== 'all' && !isReels) {
+      if (currentFilter === 'approved' && state[p.id]?.approved !== true) return;
+      if (currentFilter === 'pending' && state[p.id]?.approved !== undefined && state[p.id]?.approved !== null) return;
+      if (['promo','product','brand'].includes(currentFilter) && p.type !== currentFilter) return;
+    }
+
+    if (p.week !== currentWeek) {
+      if (currentWeek !== 0) html += '</div>';
+      currentWeek = p.week;
+      html += `<div class="week-header">${WEEK_ICONS[currentWeek]} ${WEEK_NAMES[currentWeek]}</div>`;
+      html += '<div class="posts-grid">';
+    }
+
+    const s = state[p.id] || {};
+    const cardClass = s.approved === true ? 'post-card approved' : s.approved === false ? 'post-card skipped' : 'post-card';
+    const badgeClass = p.type === 'promo' ? 'badge-promo' : p.type === 'product' ? 'badge-product' : 'badge-brand';
+    const badgeText = p.type === 'promo' ? '🔥 PROMO' : p.type === 'product' ? '🍔 PRODUCTO' : '💚 BRAND';
+    const statusText = s.approved === true ? '✅ Aprobado' : s.approved === false ? '⏭️ Omitido' : '';
+    const statusClass = s.approved === true ? 'approved' : s.approved === false ? 'skipped' : '';
+
+    html += `
+      <div class="${cardClass}" id="card-${p.id}">
+        <img src="posts/${p.img}.png?v=${VERSION}" alt="${p.title}" class="card-image${isReels ? ' reel' : ''}" loading="lazy" onerror="this.src='posts/logo-las-alitas.png?v=${VERSION}'">
+        <div class="card-body">
+          <div class="card-header">
+            <span class="card-number">#${p.id}</span>
+            <span class="card-badge ${badgeClass}">${badgeText}</span>
+          </div>
+          <div class="card-day">${p.day} · Semana ${p.week}</div>
+          <div class="card-title">${p.title}</div>
+          <div class="card-copy">${p.copy.replace(/\n/g, '<br>')}<br><br><em>${p.hashtags}</em></div>
+          <div class="card-links">
+            <a href="https://www.facebook.com/lasalitasdesiempreoficial" target="_blank">📘 Facebook</a>
+            <a href="https://app.lasalitasdesiempre.com/homemenu" target="_blank" class="menu-link">🍗 Menú Digital</a>
+          </div>
+          <textarea class="card-notes" id="notes-${p.id}" placeholder="Agrega notas o cambios aquí..." rows="2" oninput="saveNote(${p.id}, this.value)">${s.notes || ''}</textarea>
+          <div class="card-actions">
+            <button class="btn-approve" id="btn-approve-${p.id}" onclick="approve(${p.id})" ${s.approved === true ? 'disabled' : ''}>${s.approved === true ? '✅ Aprobado' : '✅ Aprobar'}</button>
+            <button class="btn-skip" id="btn-skip-${p.id}" onclick="skip(${p.id})" ${s.approved === false ? 'disabled' : ''}>${s.approved === false ? '⏭️ Omitido' : '⏭️ Omitir'}</button>
+            <button class="btn-reset" onclick="reset(${p.id})" title="Quitar aprobado/omitido sin borrar la nota">↩️ Estado</button>
+          </div>
+          <div class="card-status ${statusClass}" id="status-${p.id}">${statusText}</div>
+        </div>
+      </div>`;
+  });
+
+  if (currentWeek !== 0) html += '</div>';
+
+  container.innerHTML = html;
+  updateStats();
+}
+
+// ─── ACTIONS ───
+function loadState() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  } catch (e) {
+    console.warn('No se pudo cargar el estado guardado:', e);
+    return {};
+  }
+}
+
+function persistState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function captureVisibleNotes() {
+  document.querySelectorAll('.card-notes').forEach(textarea => {
+    const id = Number(textarea.id.replace('notes-', ''));
+    saveNote(id, textarea.value, false);
+  });
+  persistState();
+}
+
+function saveNote(id, notes, persist = true) {
+  state[id] = { ...(state[id] || {}), notes };
+  if (persist) persistState();
+}
+
+function approve(id) {
+  const notes = document.getElementById(`notes-${id}`).value;
+  state[id] = { ...(state[id] || {}), approved: true, notes };
+  persistState();
+  render();
+}
+
+function skip(id) {
+  const notes = document.getElementById(`notes-${id}`).value;
+  state[id] = { ...(state[id] || {}), approved: false, notes };
+  persistState();
+  render();
+}
+
+function reset(id) {
+  const notes = document.getElementById(`notes-${id}`).value;
+  state[id] = { ...(state[id] || {}), approved: null, notes };
+  persistState();
+  render();
+}
+
+function updateStats() {
+  const approved = Object.values(state).filter(s => s.approved === true).length;
+  const skipped = Object.values(state).filter(s => s.approved === false).length;
+  document.getElementById('approved-count').textContent = approved;
+  document.getElementById('pending-count').textContent = 30 - approved - skipped;
+}
+
+// ─── FILTER ───
+document.getElementById('filter-bar').addEventListener('click', function(e) {
+  if (e.target.classList.contains('filter-btn')) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    currentFilter = e.target.dataset.filter;
+    render();
+  }
 });
-function setStatus(day,status){
-  states[day]=status;
-  const card=document.getElementById('card-'+day);
-  const rib=document.getElementById('ribbon-'+day);
-  card.classList.remove('status-approved','status-rejected');
-  card.classList.add('status-'+status);
-  rib.textContent=status==='approved'?'✅ APROBADO':'❌ CAMBIOS';
-  card.style.boxShadow=status==='approved'?'0 0 24px rgba(39,174,96,0.45)':'0 0 24px rgba(192,57,43,0.45)';
-  setTimeout(()=>card.style.boxShadow='',800);
-  updateCounts();updateSummary();
+
+// ─── EXPORT ───
+function exportJSON() {
+  const result = posts.map(p => ({
+    id: p.id,
+    day: p.day,
+    week: p.week,
+    type: p.type,
+    title: p.title,
+    approved: state[p.id]?.approved === true ? true : state[p.id]?.approved === false ? false : null,
+    notes: state[p.id]?.notes || '',
+    image: `posts/${p.img}.png`,
+    facebook: 'https://www.facebook.com/lasalitasdesiempreoficial',
+    menu: 'https://app.lasalitasdesiempre.com/homemenu'
+  }));
+  const blob = new Blob([JSON.stringify(result, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'las-alitas-aprobacion.json';
+  a.click();
+  URL.revokeObjectURL(url);
 }
-function updateCounts(){
-  let a=0,r=0,p=0;
-  DAYS.forEach(({d})=>{if(states[d]==='approved')a++;else if(states[d]==='rejected')r++;else p++;});
-  document.getElementById('cnt-approved').textContent=a;
-  document.getElementById('cnt-rejected').textContent=r;
-  document.getElementById('cnt-pending').textContent=p;
-  const rev=a+r,pct=Math.round(rev/30*100);
-  document.getElementById('progress-fill').style.width=pct+'%';
-  document.getElementById('progress-label').textContent=rev+' / 30 revisados ('+pct+'%)';
+
+// ─── WHATSAPP ───
+function sendWhatsApp() {
+  const approved = posts.filter(p => state[p.id]?.approved === true);
+  const notes = posts.filter(p => state[p.id]?.notes).map(p => `#${p.id}: ${state[p.id].notes}`);
+  const skipped = posts.filter(p => state[p.id]?.approved === false).length;
+  let msg = '📋 *APROBACIÓN LAS ALITAS DE SIEMPRE*%0A%0A';
+  msg += `✅ Aprobados: ${approved.length}/30%0A`;
+  msg += `⏳ Pendientes: ${30 - approved.length - skipped}/30%0A%0A`;
+  if (notes.length) {
+    msg += '📝 *NOTAS:*%0A' + notes.join('%0A') + '%0A%0A';
+  }
+  msg += '🔗 https://bunkercreativomx-maker.github.io/las-alitas-de-siempre/';
+  window.open(`https://wa.me/526564535107?text=${msg}`, '_blank');
 }
-function updateSummary(){
-  const sg=document.getElementById('summary-grid');
-  sg.innerHTML=DAYS.map(({d,date})=>{
-    const s=states[d];
-    const note=(document.getElementById('note-'+d)||{}).value||'';
-    const lbl=s==='approved'?'✅ Aprobado':s==='rejected'?'❌ Pedir cambios':'⏳ Pendiente';
-    return`<div class="summary-item"><div class="s-day">Día ${d} · ${date}</div><div class="s-status ${s}">${lbl}</div>${note?`<div class="s-note">💬 ${note}</div>`:''}</div>`;
-  }).join('');
+
+// ─── TELEGRAM ───
+function sendTelegram() {
+  const approved = posts.filter(p => state[p.id]?.approved === true);
+  const notes = posts.filter(p => state[p.id]?.notes).map(p => `#${p.id}: ${state[p.id].notes}`);
+  const skipped = posts.filter(p => state[p.id]?.approved === false).length;
+  let msg = '📋 APROBACIÓN LAS ALITAS DE SIEMPRE\n\n';
+  msg += `✅ Aprobados: ${approved.length}/30\n`;
+  msg += `⏳ Pendientes: ${30 - approved.length - skipped}/30\n\n`;
+  if (notes.length) {
+    msg += '📝 NOTAS:\n' + notes.join('\n') + '\n\n';
+  }
+  msg += '🔗 https://bunkercreativomx-maker.github.io/las-alitas-de-siempre/';
+  window.open(`https://t.me/share/url?url=https://bunkercreativomx-maker.github.io/las-alitas-de-siempre/&text=${encodeURIComponent(msg)}`, '_blank');
 }
-function toggleCap(d,btn){
-  const el=document.getElementById('cap-'+d);
-  el.classList.toggle('expanded');
-  btn.textContent=el.classList.contains('expanded')?'Ver menos ▴':'Ver más ▾';
-}
-function filterCards(f,btn){
-  document.querySelectorAll('.btn-filter').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.card').forEach(c=>{
-    const d=parseInt(c.dataset.day);
-    c.classList.toggle('hidden',f!=='all'&&states[d]!==f);
-  });
-}
-function openLightbox(src){document.getElementById('lightbox-img').src=src;document.getElementById('lightbox').classList.add('open');}
-function closeLightbox(){document.getElementById('lightbox').classList.remove('open');}
-function openExport(){
-  const lines=['=== RESUMEN DE REVISIÓN — Las Alitas De Siempre ===','Generado: '+new Date().toLocaleString('es-MX'),''];
-  DAYS.forEach(({d,date})=>{
-    const s=states[d];
-    const note=(document.getElementById('note-'+d)||{}).value?.trim()||'';
-    const e=s==='approved'?'✅':s==='rejected'?'❌':'⏳';
-    const lbl=s==='approved'?'APROBADO':s==='rejected'?'PEDIR CAMBIOS':'PENDIENTE';
-    lines.push(`Día ${String(d).padStart(2,'0')} (${date}) — ${e} ${lbl}${note?'\n   Nota: '+note:''}`);
-  });
-  const a=Object.values(states).filter(s=>s==='approved').length;
-  const r=Object.values(states).filter(s=>s==='rejected').length;
-  const p=Object.values(states).filter(s=>s==='pending').length;
-  lines.push('','Total: '+a+' aprobados · '+r+' con cambios · '+p+' pendientes');
-  document.getElementById('export-text').textContent=lines.join('\n');
-  document.getElementById('export-modal').classList.add('open');
-}
-function closeExport(){document.getElementById('export-modal').classList.remove('open');}
-function copyExport(){
-  navigator.clipboard.writeText(document.getElementById('export-text').textContent).then(()=>{
-    const btn=document.querySelector('.btn-copy');btn.textContent='✅ Copiado';
-    setTimeout(()=>btn.textContent='📋 Copiar',2000);
-  });
-}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeLightbox();closeExport();}});
-updateCounts();updateSummary();
+
+// ─── INIT ───
+render();
 </script>
 </body>
-</html><!-- Updated: Thu Jul  2 22:12:24 UTC 2026 - regenerated boneless images for Jueves posts -->
+</html>

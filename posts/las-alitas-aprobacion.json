@@ -1,0 +1,272 @@
+[
+  {
+    "id": 1,
+    "day": "MIÉRCOLES",
+    "week": 1,
+    "type": "promo",
+    "title": "🌶️ ¡Ya están aquí las promos de la semana! — Miércoles de Papas Gratis",
+    "approved": true,
+    "notes": "✅ REGENERADO - estilo pincelada/grunge + logo real bottom-right"
+  },
+  {
+    "id": 2,
+    "day": "JUEVES",
+    "week": 1,
+    "type": "promo",
+    "title": "🏆 Mega Jueves — 1kg de Boneless + Papas · 3 Sabores · $320",
+    "approved": true,
+    "notes": "✅ REGENERADO - food-only, plato negro, bolsa blanca, apio+zanahoria"
+  },
+  {
+    "id": 3,
+    "day": "VIERNES",
+    "week": 1,
+    "type": "product",
+    "title": "🍔 Fin de Semana de Hamburguesas — 7 Opciones",
+    "approved": true,
+    "notes": "✅ REGENERADO - lifestyle amigos comiendo hamburguesas"
+  },
+  {
+    "id": 4,
+    "day": "SÁBADO",
+    "week": 1,
+    "type": "product",
+    "title": "🍗 ¿Alitas o Boneless? ¡Los dos! + 13 Salsas",
+    "approved": true,
+    "notes": "✅ REGENERADO - lifestyle pareja en casa viendo TV"
+  },
+  {
+    "id": 5,
+    "day": "DOMINGO",
+    "week": 1,
+    "type": "brand",
+    "title": "☀️ Domingo Familiar en Las Alitas de Siempre",
+    "approved": true,
+    "notes": "✅ REGENERADO - lifestyle familia comiendo"
+  },
+  {
+    "id": 6,
+    "day": "LUNES",
+    "week": 2,
+    "type": "promo",
+    "title": "🍟 Lunes de Papas Gratis con Hamburguesas",
+    "approved": true,
+    "notes": "✅ REGENERADO - food-only, hamburguesa + bolsa blanca papas"
+  },
+  {
+    "id": 7,
+    "day": "MARTES",
+    "week": 2,
+    "type": "promo",
+    "title": "🔥 Martes de Boneless 2x1 — $199",
+    "approved": true,
+    "notes": "✅ REGENERADO - food-only, 2 platos boneless"
+  },
+  {
+    "id": 8,
+    "day": "MIÉRCOLES",
+    "week": 2,
+    "type": "promo",
+    "title": "🌶️ Miércoles — Papas Gratis + Boneless",
+    "approved": true,
+    "notes": "✅ REGENERADO - food-only"
+  },
+  {
+    "id": 9,
+    "day": "JUEVES",
+    "week": 2,
+    "type": "promo",
+    "title": "🏆 Mega Jueves — 1kg Boneless",
+    "approved": true,
+    "notes": "✅ REGENERADO - food-only, 1kg boneless"
+  },
+  {
+    "id": 10,
+    "day": "VIERNES",
+    "week": 2,
+    "type": "product",
+    "title": "🥔 ¿Ya probaste los Papaneless?",
+    "approved": true,
+    "notes": "✅ REGENERADO - lifestyle amigos compartiendo"
+  },
+  {
+    "id": 11,
+    "day": "SÁBADO",
+    "week": 2,
+    "type": "product",
+    "title": "🥗 ¿Antojo fresco? Ensalada Vuala $125",
+    "approved": true,
+    "notes": "✅ REGENERADO - lifestyle mujer comiendo ensalada"
+  },
+  {
+    "id": 12,
+    "day": "DOMINGO",
+    "week": 2,
+    "type": "brand",
+    "title": "🌶️ 13 Salsas — ¿Cuál es la tuya?",
+    "approved": true,
+    "notes": "✅ REGENERADO - lifestyle grupo con salsas"
+  },
+  {
+    "id": 13,
+    "day": "LUNES",
+    "week": 3,
+    "type": "promo",
+    "title": "🍟 Lunes — Hamburguesa + Papas Gratis",
+    "approved": true,
+    "notes": "✅ REGENERADO - food-only, burger + fries"
+  },
+  {
+    "id": 14,
+    "day": "MARTES",
+    "week": 3,
+    "type": "promo",
+    "title": "🔥 ¡Ya es Martes! Boneless 2x1 — $199",
+    "approved": true,
+    "notes": "✅ APROBADO ANTERIORMENTE"
+  },
+  {
+    "id": 15,
+    "day": "MIÉRCOLES",
+    "week": 3,
+    "type": "promo",
+    "title": "🌶️ Miércoles de Papas Gratis con Boneless",
+    "approved": true,
+    "notes": "✅ REGENERADO - food-only"
+  },
+  {
+    "id": 16,
+    "day": "JUEVES",
+    "week": 3,
+    "type": "promo",
+    "title": "🏆 Mega Jueves — ¡1 KG de Boneless!",
+    "approved": true,
+    "notes": "✅ REGENERADO - food-only, 1kg boneless"
+  },
+  {
+    "id": 17,
+    "day": "VIERNES",
+    "week": 3,
+    "type": "product",
+    "title": "🧀 ¿Te gusta el queso? Costra + Titan",
+    "approved": true,
+    "notes": "✅ REGENERADO - lifestyle hamburguesas con queso"
+  },
+  {
+    "id": 18,
+    "day": "SÁBADO",
+    "week": 3,
+    "type": "product",
+    "title": "🥔 Solo para amantes de las papas",
+    "approved": true,
+    "notes": "✅ APROBADO ANTERIORMENTE"
+  },
+  {
+    "id": 19,
+    "day": "DOMINGO",
+    "week": 3,
+    "type": "brand",
+    "title": "📞 ¿Cansado de esperar? Ordena y Recoge",
+    "approved": true,
+    "notes": "✅ REGENERADO - lifestyle familia con takeout"
+  },
+  {
+    "id": 20,
+    "day": "LUNES",
+    "week": 4,
+    "type": "promo",
+    "title": "🍟 Lunes de Papas Gratis — La mejor forma de empezar la semana",
+    "approved": true,
+    "notes": "✅ REGENERADO - food-only"
+  },
+  {
+    "id": 21,
+    "day": "MARTES",
+    "week": 4,
+    "type": "promo",
+    "title": "🔥 Martes 2x1 — Boneless $199",
+    "approved": true,
+    "notes": "✅ APROBADO ANTERIORMENTE (estilo texto favorito)"
+  },
+  {
+    "id": 22,
+    "day": "MIÉRCOLES",
+    "week": 4,
+    "type": "promo",
+    "title": "🌶️ Miércoles — El día del Boneless",
+    "approved": true,
+    "notes": "✅ APROBADO ANTERIORMENTE (estilo texto favorito)"
+  },
+  {
+    "id": 23,
+    "day": "JUEVES",
+    "week": 4,
+    "type": "promo",
+    "title": "🏆 ¡Mega Jueves! 1 KG de Boneless",
+    "approved": true,
+    "notes": "✅ REGENERADO - food-only, montaña de 1kg boneless (30 pzas)"
+  },
+  {
+    "id": 24,
+    "day": "VIERNES",
+    "week": 4,
+    "type": "product",
+    "title": "🐔 Crispy Chicken — $100",
+    "approved": true,
+    "notes": "✅ APROBADO ANTERIORMENTE"
+  },
+  {
+    "id": 25,
+    "day": "SÁBADO",
+    "week": 4,
+    "type": "product",
+    "title": "💥 Arma tu propio Combo",
+    "approved": true,
+    "notes": "✅ APROBADO ANTERIORMENTE"
+  },
+  {
+    "id": 26,
+    "day": "DOMINGO",
+    "week": 4,
+    "type": "brand",
+    "title": "🙌 Gracias por hacernos tan populares",
+    "approved": true,
+    "notes": "✅ APROBADO ANTERIORMENTE"
+  },
+  {
+    "id": 27,
+    "day": "LUNES",
+    "week": 5,
+    "type": "promo",
+    "title": "🍟 Arranca la semana con Papas Gratis",
+    "approved": true,
+    "notes": "✅ APROBADO ANTERIORMENTE (estilo texto favorito)"
+  },
+  {
+    "id": 28,
+    "day": "MARTES",
+    "week": 5,
+    "type": "promo",
+    "title": "🔥 Boneless 2x1 — Hoy Martes",
+    "approved": true,
+    "notes": "✅ REGENERADO - lifestyle amigos celebrando"
+  },
+  {
+    "id": 29,
+    "day": "MIÉRCOLES",
+    "week": 5,
+    "type": "promo",
+    "title": "🌶️ Miércoles de Papas + Boneless",
+    "approved": true,
+    "notes": "✅ REGENERADO - food-only"
+  },
+  {
+    "id": 30,
+    "day": "JUEVES",
+    "week": 5,
+    "type": "promo",
+    "title": "🏆 Gran Final — Mega Jueves",
+    "approved": true,
+    "notes": "✅ APROBADO ANTERIORMENTE"
+  }
+]
