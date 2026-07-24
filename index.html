@@ -1,1027 +1,452 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
-<title>Las Alitas de Siempre — Calendario 30 Posts</title>
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Las Alitas de Siempre · Agosto 2026</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --brand-red: #E63946;
-    --brand-red-dark: #C1121F;
-    --brand-black: #1A1A1A;
-    --brand-orange: #F97316;
-    --brand-orange-dark: #EA580C;
-    --brand-gold: #FBBF24;
-    --bg-dark: #111111;
-    --bg-card: #1A1A1A;
-    --bg-card-alt: #222222;
-    --text: #FFFFFF;
-    --text-muted: #AAAAAA;
-    --border: #333333;
-    --shadow: 0 4px 20px rgba(0,0,0,0.3);
-    --radius: 12px;
-  }
-
-  body {
-    font-family: 'Inter', -apple-system, sans-serif;
-    background: var(--bg-dark);
-    color: var(--text);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* HEADER */
-  .header {
-    background: linear-gradient(135deg, #000000 0%, #1A1A1A 50%, #000000 100%);
-    padding: 40px 20px 30px;
-    text-align: center;
-    border-bottom: 3px solid var(--brand-red);
-    position: relative;
-    overflow: hidden;
-  }
-  .header::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -20%;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(230,57,70,0.12) 0%, transparent 70%);
-    border-radius: 50%;
-  }
-  .header::after {
-    content: '';
-    position: absolute;
-    bottom: -50%;
-    right: -20%;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(249,115,22,0.1) 0%, transparent 70%);
-    border-radius: 50%;
-  }
-  .header-content { position: relative; z-index: 1; }
-  .logo-img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: contain;
-    margin-bottom: 12px;
-    border: 2px solid var(--brand-red);
-    padding: 4px;
-    background: white;
-  }
-  .header h1 {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 28px;
-    font-weight: 800;
-    color: white;
-    letter-spacing: -0.5px;
-  }
-  .header h1 span { color: var(--brand-red); }
-  .header .subtitle {
-    color: var(--text-muted);
-    font-size: 14px;
-    margin-top: 4px;
-  }
-  .header-links {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 16px;
-    flex-wrap: wrap;
-  }
-  .header-links a {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-  .header-links a.facebook {
-    background: #1877F2;
-    color: white;
-  }
-  .header-links a.menu {
-    background: var(--brand-orange);
-    color: white;
-  }
-  .header-links a:hover { transform: translateY(-1px); opacity: 0.9; }
-
-  /* STATS BAR */
-  .stats-bar {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-    padding: 16px 20px;
-    background: var(--bg-card);
-    border-bottom: 1px solid var(--border);
-    flex-wrap: wrap;
-  }
-  .stat-item {
-    text-align: center;
-  }
-  .stat-item .num {
-    font-size: 20px;
-    font-weight: 800;
-    color: var(--brand-red);
-  }
-  .stat-item .label {
-    font-size: 11px;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  /* FILTER BAR */
-  .filter-bar {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    padding: 16px 20px;
-    flex-wrap: wrap;
-  }
-  .filter-btn {
-    padding: 6px 14px;
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--text-muted);
-    font-size: 12px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .filter-btn:hover { border-color: var(--brand-red); color: white; }
-  .filter-btn.active {
-    background: var(--brand-red);
-    border-color: var(--brand-red);
-    color: white;
-  }
-
-  /* WEEK HEADER */
-  .week-header {
-    padding: 20px 20px 12px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--brand-orange);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .week-header::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, var(--brand-orange), transparent);
-  }
-
-  /* POSTS GRID */
-  .posts-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 20px;
-    padding: 0 20px 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  /* POST CARD */
-  .post-card {
-    background: var(--bg-card);
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    overflow: hidden;
-    transition: all 0.3s;
-  }
-  .post-card:hover {
-    border-color: var(--brand-red);
-    box-shadow: var(--shadow);
-    transform: translateY(-2px);
-  }
-  .post-card.approved {
-    border-color: #10B981;
-  }
-  .post-card.approved .card-badge { background: #10B981; }
-  .post-card.skipped {
-    border-color: #6B7280;
-    opacity: 0.7;
-  }
-  .post-card.skipped .card-badge { background: #6B7280; }
-
-  .card-image {
-    width: 100%;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    display: block;
-    background: #000;
-  }
-
-  .card-image.reel {
-    aspect-ratio: 9/16;
-  }
-
-  .card-body {
-    padding: 16px;
-  }
-
-  .card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  .card-number {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--brand-red);
-    background: rgba(230,57,70,0.15);
-    padding: 3px 8px;
-    border-radius: 4px;
-  }
-  .card-badge {
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 3px 8px;
-    border-radius: 4px;
-    color: white;
-  }
-  .badge-promo { background: var(--brand-red); }
-  .badge-product { background: var(--brand-orange); }
-  .badge-brand { background: #10B981; }
-
-  .card-day {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--brand-orange);
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 6px;
-  }
-
-  .card-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    margin-bottom: 8px;
-    line-height: 1.3;
-  }
-
-  .card-copy {
-    font-size: 12px;
-    color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 12px;
-    max-height: 120px;
-    overflow-y: auto;
-    padding: 8px;
-    background: var(--bg-card-alt);
-    border-radius: 6px;
-  }
-  .card-copy::-webkit-scrollbar { width: 4px; }
-  .card-copy::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-
-  .card-links {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 12px;
-    flex-wrap: wrap;
-  }
-  .card-links a {
-    font-size: 11px;
-    color: #1877F2;
-    text-decoration: none;
-    font-weight: 500;
-  }
-  .card-links a:hover { text-decoration: underline; }
-  .card-links a.menu-link { color: var(--brand-orange); }
-
-  /* NOTES FIELD */
-  .card-notes {
-    width: 100%;
-    padding: 8px 10px;
-    margin-bottom: 10px;
-    background: var(--bg-card-alt);
-    color: var(--text);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    font-size: 12px;
-    font-family: inherit;
-    resize: vertical;
-    min-height: 40px;
-  }
-  .card-notes:focus {
-    outline: none;
-    border-color: var(--brand-orange);
-  }
-  .card-notes::placeholder { color: #666; }
-
-  /* APPROVAL BUTTONS */
-  .card-actions {
-    display: flex;
-    gap: 8px;
-  }
-  .card-actions button {
-    flex: 1;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .btn-approve {
-    background: #10B981;
-    color: white;
-  }
-  .btn-approve:hover { background: #059669; }
-  .btn-approve:disabled { background: #064E3B; cursor: default; }
-  .btn-skip {
-    background: #6B7280;
-    color: white;
-  }
-  .btn-skip:hover { background: #4B5563; }
-  .btn-skip:disabled { background: #374151; cursor: default; }
-  .btn-reset {
-    background: transparent;
-    color: var(--text-muted);
-    border: 1px solid var(--border) !important;
-  }
-  .btn-reset:hover { border-color: var(--brand-red); color: white; }
-
-  .card-status {
-    display: none;
-    margin-top: 10px;
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: 600;
-    text-align: center;
-  }
-  .card-status.approved { display: block; background: rgba(16,185,129,0.15); color: #6EE7B7; }
-  .card-status.skipped { display: block; background: rgba(107,114,128,0.15); color: #9CA3AF; }
-
-  /* FOOTER ACTIONS */
-  .footer-actions {
-    position: sticky;
-    bottom: 0;
-    background: var(--bg-card);
-    border-top: 1px solid var(--border);
-    padding: 16px 20px;
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    z-index: 10;
-  }
-  .btn-primary {
-    padding: 10px 24px;
-    border: none;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .btn-whatsapp { background: #25D366; color: white; }
-  .btn-whatsapp:hover { background: #1DA851; }
-  .btn-telegram { background: #0088CC; color: white; }
-  .btn-telegram:hover { background: #0077B5; }
-  .btn-export {
-    background: var(--brand-orange);
-    color: white;
-  }
-  .btn-export:hover { background: var(--brand-orange-dark); }
-
-  .promo-strip {
-    display: flex;
-    gap: 8px;
-    padding: 12px 20px;
-    background: linear-gradient(90deg, var(--brand-red), var(--brand-orange));
-    justify-content: center;
-    flex-wrap: wrap;
-    font-size: 12px;
-    font-weight: 600;
-  }
-  .promo-strip span {
-    background: rgba(0,0,0,0.3);
-    padding: 4px 10px;
-    border-radius: 4px;
-    white-space: nowrap;
-  }
-
-  @media (max-width: 600px) {
-    .posts-grid { grid-template-columns: 1fr; padding: 0 12px 40px; }
-    .header h1 { font-size: 22px; }
-    .stats-bar { gap: 16px; }
-    .stat-item .num { font-size: 16px; }
-    .footer-actions { flex-direction: column; align-items: stretch; }
-    .promo-strip { font-size: 10px; }
-  }
-</style>
-</head>
-<body>
-
-<!-- HEADER -->
-<div class="header">
-  <div class="header-content">
-    <img src="posts/logo-las-alitas.png" alt="Las Alitas de Siempre" class="logo-img" loading="lazy">
-    <h1>Las <span>Alitas</span> de Siempre</h1>
-    <p class="subtitle">📅 Calendario Editorial · Julio 2026 · 30 Posts · "El Sabor Que Te Hace Volver"</p>
-    <div class="header-links">
-      <a href="https://www.facebook.com/lasalitasdesiempreoficial" target="_blank" class="facebook">📘 Síguenos en Facebook</a>
-      <a href="https://app.lasalitasdesiempre.com/homemenu" target="_blank" class="menu">🍗 Menú Digital</a>
-    </div>
-  </div>
-</div>
-
-<!-- PROMO STRIP -->
-<div class="promo-strip">
-  <span>🍟 LUNES: Papas gratis c/hamburguesas</span>
-  <span>🔥 MARTES: Boneless 2x1 $199</span>
-  <span>🌶️ MIÉRCOLES: Papas gratis c/boneless</span>
-  <span>🏆 JUEVES: 1kg Boneless + Papas $320</span>
-</div>
-
-<!-- STATS -->
-<div class="stats-bar">
-  <div class="stat-item"><div class="num">30</div><div class="label">Posts</div></div>
-  <div class="stat-item"><div class="num" id="approved-count">0</div><div class="label">Aprobados</div></div>
-  <div class="stat-item"><div class="num" id="pending-count">30</div><div class="label">Pendientes</div></div>
-  <div class="stat-item"><div class="num">5</div><div class="label">Semanas</div></div>
-</div>
-
-<!-- FILTER -->
-<div class="filter-bar" id="filter-bar">
-  <button class="filter-btn active" data-filter="all">📋 Todas</button>
-  <button class="filter-btn" data-filter="promo">🔥 Promos</button>
-  <button class="filter-btn" data-filter="product">🍔 Productos</button>
-  <button class="filter-btn" data-filter="brand">💚 Brand</button>
-  <button class="filter-btn" data-filter="approved">✅ Aprobadas</button>
-  <button class="filter-btn" data-filter="pending">⏳ Pendientes</button>
-  <button class="filter-btn" data-filter="reels">🎬 Reels</button>
-</div>
-
-<!-- POSTS -->
-<div id="posts-container"></div>
-
-<!-- FOOTER -->
-<div class="footer-actions">
-  <button class="btn-primary btn-whatsapp" onclick="sendWhatsApp()">📱 Enviar a WhatsApp</button>
-  <button class="btn-primary btn-telegram" onclick="sendTelegram()">✈️ Enviar a Telegram</button>
-  <button class="btn-primary btn-export" onclick="exportJSON()">📥 Exportar JSON</button>
-</div>
-
-<script>
-// ─── POST DATA ───
-const posts = [
-  {
-    "id": 1,
-    "day": "MIÉRCOLES",
-    "week": 1,
-    "type": "promo",
-    "title": "🌶️ Miércoles de boneless con papas gratis",
-    "tag": "MIÉRCOLES",
-    "copy": "PAPAS GRATIS\n\nPapas chicas GRATIS con paquetes de boneless de 10, 20, 30, 40 o 50 piezas. Elige tus salsas y arma el centro de mesa perfecto.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #Boneless #PapasGratis #MiércolesDeBoneless",
-    "img": "post-01-lifestyle"
-  },
-  {
-    "id": 2,
-    "day": "JUEVES",
-    "week": 1,
-    "type": "promo",
-    "title": "🏆 Mega Jueves para compartir",
-    "tag": "JUEVES",
-    "copy": "1KG BONELESS + PAPAS $320\n\n1 kg de boneless + papas con 3 sabores diferentes por solo $320. Ideal para la sala, el partido y la mesa llena.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #MegaJueves #1KgBoneless #ParaCompartir",
-    "img": "post-02-lifestyle"
-  },
-  {
-    "id": 3,
-    "day": "VIERNES",
-    "week": 1,
-    "type": "product",
-    "title": "🍔 Viernes de hamburguesas bien servidas",
-    "tag": "VIERNES",
-    "copy": "7 HAMBURGUESAS PARA ELEGIR\n\nClassica $60, Doble $90, Suprema $95, Titan $105, Costra $105, Crispy Chicken $100 y Pollo Plancha $90. Baña tu burger con tu salsa favorita por $10 extra.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #Hamburguesas #ViernesDeAntojo #CrispyChicken",
-    "img": "post-03-lifestyle"
-  },
-  {
-    "id": 4,
-    "day": "SÁBADO",
-    "week": 1,
-    "type": "product",
-    "title": "🍗 Sábado de alitas, boneless y salsas",
-    "tag": "SÁBADO",
-    "copy": "13 SALSAS PARA TU ANTOJO\n\nAlitas $185 o Boneless $175 con papas, apio, zanahoria, catsup y ranch. Hay niveles suave, medio y extremo para todos.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #Alitas #Boneless #Papaneless #Salsas",
-    "img": "post-04-lifestyle"
-  },
-  {
-    "id": 5,
-    "day": "DOMINGO",
-    "week": 1,
-    "type": "brand",
-    "title": "💚 Domingo familiar con sabor de casa",
-    "tag": "DOMINGO",
-    "copy": "EL SABOR QUE TE HACE VOLVER\n\nGracias por compartir la mesa con nosotros. Pide tus alitas, boneless, papas o hamburguesas y disfruta un domingo sin cocinar.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #DomingoFamiliar #ElSaborQueTeHaceVolver #Familia",
-    "img": "post-05-lifestyle"
-  },
-  {
-    "id": 6,
-    "day": "LUNES",
-    "week": 1,
-    "type": "promo",
-    "title": "🍟 Lunes de burger: papas van por cuenta de la casa",
-    "tag": "LUNES",
-    "copy": "LUNES DE PAPAS GRATIS\n\nPapas chicas GRATIS con cualquier hamburguesa: Classica, Doble, Suprema, Titan, Costra, Pollo Plancha o Crispy Chicken. Empieza la semana con una burger bien servida y ese sabor que te hace volver.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #LunesDePapasGratis #Hamburguesas #PlazaDeLasAmericas",
-    "img": "post-06-lifestyle"
-  },
-  {
-    "id": 7,
-    "day": "MARTES",
-    "week": 1,
-    "type": "promo",
-    "title": "🔥 Martes de Boneless 2x1",
-    "tag": "MARTES",
-    "copy": "BONELESS 2X1 POR $199\n\nLa promo que convierte el martes en plan: orden de Boneless 2x1 por solo $199. Incluye papas, apio, zanahoria, catsup y ranch con 2 salsas a escoger.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #Boneless2x1 #MartesDeBoneless #Salsas",
-    "img": "post-07-lifestyle"
-  },
-  {
-    "id": 8,
-    "day": "MIÉRCOLES",
-    "week": 2,
-    "type": "promo",
-    "title": "🍟 Mitad de semana, antojo completo",
-    "tag": "MIÉRCOLES",
-    "copy": "PAPAS GRATIS + BONELESS\n\nTodos los paquetes de boneless de 10 a 50 piezas incluyen papas chicas gratis. Perfecto para ver el partido, la peli o la serie en casa.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #Boneless #PapasGratis #MiércolesDeBoneless",
-    "img": "post-08-lifestyle"
-  },
-  {
-    "id": 9,
-    "day": "JUEVES",
-    "week": 2,
-    "type": "promo",
-    "title": "🔥 Jueves grande: un kilo de sabor",
-    "tag": "JUEVES",
-    "copy": "1KG + PAPAS + 3 SABORES\n\nMega Jueves con 1 kg de boneless, papas y 3 salsas por $320. Elige Buffalo, BBQ, Habanero Ranch o la que más se te antoje.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #MegaJueves #1KgBoneless #ParaCompartir",
-    "img": "post-09-lifestyle"
-  },
-  {
-    "id": 10,
-    "day": "VIERNES",
-    "week": 2,
-    "type": "product",
-    "title": "🧀 La Costra y la Titan se roban la mesa",
-    "tag": "VIERNES",
-    "copy": "BURGERS CON MUCHO SABOR\n\nSi vienes con hambre, pide Costra con queso menonita o Titan con bisteck, jamón y winnie. Viernes de antojo cumplido.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #Hamburguesas #ViernesDeAntojo #CrispyChicken",
-    "img": "post-10-lifestyle"
-  },
-  {
-    "id": 11,
-    "day": "SÁBADO",
-    "week": 2,
-    "type": "product",
-    "title": "🥔 Papaneless para compartir en la sala",
-    "tag": "SÁBADO",
-    "copy": "PAPAS CARGADAS CON TODO\n\nCama de papas, proteína, queso y salsa favorita por $175. El sábado sabe mejor con la mesa llena.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #Alitas #Boneless #Papaneless #Salsas",
-    "img": "post-11-lifestyle"
-  },
-  {
-    "id": 12,
-    "day": "DOMINGO",
-    "week": 2,
-    "type": "brand",
-    "title": "👨‍👩‍👧‍👦 Plan familiar listo",
-    "tag": "DOMINGO",
-    "copy": "TODOS EN LA MESA\n\nPara los peques, hamburguesas; para compartir, boneless; para completar, papas. Domingo perfecto en Plaza de las Americas.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #DomingoFamiliar #ElSaborQueTeHaceVolver #Familia",
-    "img": "post-12-lifestyle"
-  },
-  {
-    "id": 13,
-    "day": "LUNES",
-    "week": 2,
-    "type": "promo",
-    "title": "🍔 Tu lunes merece hamburguesa + papas",
-    "tag": "LUNES",
-    "copy": "PAPAS GRATIS CON TU BURGER\n\nElige tu hamburguesa favorita y nosotros ponemos las papas chicas gratis. ¿Classica de $60 o Titan de $105? Tú decides cómo arrancas la semana.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #LunesDePapasGratis #Hamburguesas #PlazaDeLasAmericas",
-    "img": "post-13-lifestyle"
-  },
-  {
-    "id": 14,
-    "day": "MARTES",
-    "week": 2,
-    "type": "promo",
-    "title": "🍗 Hoy se comparten boneless",
-    "tag": "MARTES",
-    "copy": "2X1 BONELESS $199\n\nPide Boneless 2x1 por $199 y arma el plan con tu persona favorita. Elige entre 13 salsas: desde Smoky BBQ hasta Mango Habanero.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #Boneless2x1 #MartesDeBoneless #Salsas",
-    "img": "post-14-lifestyle"
-  },
-  {
-    "id": 15,
-    "day": "MIÉRCOLES",
-    "week": 3,
-    "type": "promo",
-    "title": "🔥 Boneless para compartir",
-    "tag": "MIÉRCOLES",
-    "copy": "PAPAS GRATIS EN PAQUETES\n\nPide paquetes de boneless 10/20/30/40/50 y recibe papas chicas gratis. Combina sabores suaves, medios o extremos.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #Boneless #PapasGratis #MiércolesDeBoneless",
-    "img": "post-15-lifestyle"
-  },
-  {
-    "id": 16,
-    "day": "JUEVES",
-    "week": 3,
-    "type": "promo",
-    "title": "🍗 El plan fuerte del jueves",
-    "tag": "JUEVES",
-    "copy": "1KG BONELESS $320\n\nBoneless en serio: 1 kg + papas + 3 sabores diferentes por $320. Reúne a los cuates y prende la tele.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #MegaJueves #1KgBoneless #ParaCompartir",
-    "img": "post-16-lifestyle"
-  },
-  {
-    "id": 17,
-    "day": "VIERNES",
-    "week": 3,
-    "type": "product",
-    "title": "🐔 Crispy Chicken para cerrar la semana",
-    "tag": "VIERNES",
-    "copy": "CRUJE DESDE EL PRIMER BOCADO\n\nPollo empanizado, queso, vegetales frescos y todo el sabor de Las Alitas. Perfecta para tu noche de películas en casa.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #Hamburguesas #ViernesDeAntojo #CrispyChicken",
-    "img": "post-17-lifestyle"
-  },
-  {
-    "id": 18,
-    "day": "SÁBADO",
-    "week": 3,
-    "type": "product",
-    "title": "🍟 Para los amantes de las papas",
-    "tag": "SÁBADO",
-    "copy": "PAPAS EN TODOS LOS ESTILOS\n\nIndividuales, con queso, rancheras, Habanero Ranch, Jalapeño Ranch o Papaneless. Elige tu versión favorita y comparte.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #Alitas #Boneless #Papaneless #Salsas",
-    "img": "post-18-lifestyle"
-  },
-  {
-    "id": 19,
-    "day": "DOMINGO",
-    "week": 3,
-    "type": "brand",
-    "title": "🙌 Gracias por elegirnos",
-    "tag": "DOMINGO",
-    "copy": "HECHO PARA COMPARTIR\n\nCada pedido cuenta una historia: familia, amigos y antojos que se vuelven tradición. Las Alitas de Siempre te espera hoy.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #DomingoFamiliar #ElSaborQueTeHaceVolver #Familia",
-    "img": "post-19-lifestyle"
-  },
-  {
-    "id": 20,
-    "day": "LUNES",
-    "week": 3,
-    "type": "promo",
-    "title": "🔥 Arranca con antojo completo",
-    "tag": "LUNES",
-    "copy": "LUNES CON PAPAS GRATIS\n\nTodas las hamburguesas participan: carne, pollo, crispy, doble o costra. Pide la tuya y acompáñala con papas chicas gratis.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #LunesDePapasGratis #Hamburguesas #PlazaDeLasAmericas",
-    "img": "post-20-lifestyle"
-  },
-  {
-    "id": 21,
-    "day": "MARTES",
-    "week": 3,
-    "type": "promo",
-    "title": "🔥 El martes sabe a doble",
-    "tag": "MARTES",
-    "copy": "BONELESS 2X1\n\nDos órdenes, un precio: Boneless 2x1 por $199. Crujientes, bañados en salsa y listos para compartir.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #Boneless2x1 #MartesDeBoneless #Salsas",
-    "img": "post-21-lifestyle"
-  },
-  {
-    "id": 22,
-    "day": "MIÉRCOLES",
-    "week": 4,
-    "type": "promo",
-    "title": "🌶️ Miércoles de salsa y crunch",
-    "tag": "MIÉRCOLES",
-    "copy": "BONELESS + PAPAS GRATIS\n\nPapas chicas gratis con tus paquetes de boneless. Pide tus piezas, escoge salsas y disfruta sin complicarte.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #Boneless #PapasGratis #MiércolesDeBoneless",
-    "img": "post-22-lifestyle"
-  },
-  {
-    "id": 23,
-    "day": "JUEVES",
-    "week": 4,
-    "type": "promo",
-    "title": "🏆 Cierra la semana laboral a lo grande",
-    "tag": "JUEVES",
-    "copy": "MEGA JUEVES $320\n\n1 kg de boneless con papas y 3 sabores diferentes. Mucho sabor, buena porción y cero pretextos para compartir.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #MegaJueves #1KgBoneless #ParaCompartir",
-    "img": "post-23-lifestyle"
-  },
-  {
-    "id": 24,
-    "day": "VIERNES",
-    "week": 4,
-    "type": "product",
-    "title": "🍔 Viernes sin cocinar",
-    "tag": "VIERNES",
-    "copy": "HAMBURGUESAS DESDE $60\n\nPide tu favorita, acomódate en la sala y disfruta. Menú completo en la app para elegir sin complicarte.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #Hamburguesas #ViernesDeAntojo #CrispyChicken",
-    "img": "post-24-lifestyle"
-  },
-  {
-    "id": 25,
-    "day": "SÁBADO",
-    "week": 4,
-    "type": "product",
-    "title": "🍗 Combo casero para el fin",
-    "tag": "SÁBADO",
-    "copy": "ALITAS + BONELESS + PAPAS\n\nArma una mesa con alitas, boneless, papas y salsas para todos. La sala se convierte en el mejor punto de reunión.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #Alitas #Boneless #Papaneless #Salsas",
-    "img": "post-25-lifestyle"
-  },
-  {
-    "id": 26,
-    "day": "DOMINGO",
-    "week": 4,
-    "type": "brand",
-    "title": "🏠 Domingo de sala, tele y alitas",
-    "tag": "DOMINGO",
-    "copy": "ANTOJO SIN SALIR DEL PLAN\n\nReúne a la familia, pon la película y pide el menú que a todos se les antoja. Así se disfruta el cierre de semana.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #DomingoFamiliar #ElSaborQueTeHaceVolver #Familia",
-    "img": "post-26-lifestyle"
-  },
-  {
-    "id": 27,
-    "day": "LUNES",
-    "week": 4,
-    "type": "promo",
-    "title": "🍟 Lunes para los que sí saben",
-    "tag": "LUNES",
-    "copy": "BURGERS + PAPAS GRATIS\n\nCualquier hamburguesa del menú incluye papas chicas gratis. Ven por la tuya a Plaza de las Americas o revisa el menú digital.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #LunesDePapasGratis #Hamburguesas #PlazaDeLasAmericas",
-    "img": "post-27-lifestyle"
-  },
-  {
-    "id": 28,
-    "day": "MARTES",
-    "week": 4,
-    "type": "promo",
-    "title": "🌶️ Martes con salsa extra",
-    "tag": "MARTES",
-    "copy": "2X1 POR $199\n\nBoneless 2x1 por $199 con papas, ranch, apio y zanahoria. Tú pones el hambre, nosotros ponemos el sabor.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #Boneless2x1 #MartesDeBoneless #Salsas",
-    "img": "post-28-lifestyle"
-  },
-  {
-    "id": 29,
-    "day": "MIÉRCOLES",
-    "week": 5,
-    "type": "promo",
-    "title": "🌶️ Miércoles de boneless con papas gratis",
-    "tag": "MIÉRCOLES",
-    "copy": "PAPAS GRATIS\n\nPapas chicas GRATIS con paquetes de boneless de 10, 20, 30, 40 o 50 piezas. Elige tus salsas y arma el centro de mesa perfecto.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #Boneless #PapasGratis #MiércolesDeBoneless",
-    "img": "post-29-lifestyle"
-  },
-  {
-    "id": 30,
-    "day": "JUEVES",
-    "week": 5,
-    "type": "promo",
-    "title": "🏆 Mega Jueves para compartir",
-    "tag": "JUEVES",
-    "copy": "1KG BONELESS + PAPAS $320\n\n1 kg de boneless + papas con 3 sabores diferentes por solo $320. Ideal para la sala, el partido y la mesa llena.\n\n📍 Plaza de las Americas · ⏰ L-D 11:30AM – 7:30PM\n📞 656.488.7824\n\n📘 https://www.facebook.com/lasalitasdesiempreoficial\n🍗 https://app.lasalitasdesiempre.com/homemenu",
-    "hashtags": "#LasAlitasDeSiempre #MegaJueves #1KgBoneless #ParaCompartir",
-    "img": "post-30-lifestyle"
-  }
-];
-
-// ─── REELS DATA ───
-const reels = posts.map(p => ({
-  ...p,
-  img: `post-${String(p.id).padStart(2,'0')}-reel`
-}));
-
-// ─── STATE ───
-const STORAGE_KEY = 'lasAlitasApprovalState';
-let state = loadState();
-let currentFilter = 'all';
-
-const VERSION = 12;
-const WEEK_NAMES = { 1:'Semana 1 · Introducción + Promos Fuertes', 2:'Semana 2 · Ciclo Completo de Promos', 3:'Semana 3 · Productos + Promos', 4:'Semana 4 · Ritmo Constante', 5:'Semana 5 · Cierre del Mes' };
-const WEEK_ICONS = { 1:'1️⃣', 2:'2️⃣', 3:'3️⃣', 4:'4️⃣', 5:'5️⃣' };
-
-// ─── RENDER ───
-function render() {
-  captureVisibleNotes();
-  const container = document.getElementById('posts-container');
-  let currentWeek = 0;
-  let html = '';
-
-  const isReels = currentFilter === 'reels';
-  const data = isReels ? reels : posts;
-
-  data.forEach(p => {
-    if (currentFilter !== 'all' && !isReels) {
-      if (currentFilter === 'approved' && state[p.id]?.approved !== true) return;
-      if (currentFilter === 'pending' && state[p.id]?.approved !== undefined && state[p.id]?.approved !== null) return;
-      if (['promo','product','brand'].includes(currentFilter) && p.type !== currentFilter) return;
-    }
-
-    if (p.week !== currentWeek) {
-      if (currentWeek !== 0) html += '</div>';
-      currentWeek = p.week;
-      html += `<div class="week-header">${WEEK_ICONS[currentWeek]} ${WEEK_NAMES[currentWeek]}</div>`;
-      html += '<div class="posts-grid">';
-    }
-
-    const s = state[p.id] || {};
-    const cardClass = s.approved === true ? 'post-card approved' : s.approved === false ? 'post-card skipped' : 'post-card';
-    const badgeClass = p.type === 'promo' ? 'badge-promo' : p.type === 'product' ? 'badge-product' : 'badge-brand';
-    const badgeText = p.type === 'promo' ? '🔥 PROMO' : p.type === 'product' ? '🍔 PRODUCTO' : '💚 BRAND';
-    const statusText = s.approved === true ? '✅ Aprobado' : s.approved === false ? '⏭️ Omitido' : '';
-    const statusClass = s.approved === true ? 'approved' : s.approved === false ? 'skipped' : '';
-
-    html += `
-      <div class="${cardClass}" id="card-${p.id}">
-        <img src="posts/${p.img}.png?v=${VERSION}" alt="${p.title}" class="card-image${isReels ? ' reel' : ''}" loading="lazy" onerror="this.src='posts/logo-las-alitas.png?v=${VERSION}'">
-        <div class="card-body">
-          <div class="card-header">
-            <span class="card-number">#${p.id}</span>
-            <span class="card-badge ${badgeClass}">${badgeText}</span>
-          </div>
-          <div class="card-day">${p.day} · Semana ${p.week}</div>
-          <div class="card-title">${p.title}</div>
-          <div class="card-copy">${p.copy.replace(/\n/g, '<br>')}<br><br><em>${p.hashtags}</em></div>
-          <div class="card-links">
-            <a href="https://www.facebook.com/lasalitasdesiempreoficial" target="_blank">📘 Facebook</a>
-            <a href="https://app.lasalitasdesiempre.com/homemenu" target="_blank" class="menu-link">🍗 Menú Digital</a>
-          </div>
-          <textarea class="card-notes" id="notes-${p.id}" placeholder="Agrega notas o cambios aquí..." rows="2" oninput="saveNote(${p.id}, this.value)">${s.notes || ''}</textarea>
-          <div class="card-actions">
-            <button class="btn-approve" id="btn-approve-${p.id}" onclick="approve(${p.id})" ${s.approved === true ? 'disabled' : ''}>${s.approved === true ? '✅ Aprobado' : '✅ Aprobar'}</button>
-            <button class="btn-skip" id="btn-skip-${p.id}" onclick="skip(${p.id})" ${s.approved === false ? 'disabled' : ''}>${s.approved === false ? '⏭️ Omitido' : '⏭️ Omitir'}</button>
-            <button class="btn-reset" onclick="reset(${p.id})" title="Quitar aprobado/omitido sin borrar la nota">↩️ Estado</button>
-          </div>
-          <div class="card-status ${statusClass}" id="status-${p.id}">${statusText}</div>
+:root{--red:#e22b18;--orange:#ff6a00;--gold:#ffbd19;--ink:#0d0d0f;--card:#17171a;--muted:#aaa;}
+*{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 20% 0,#41100a 0,#111 32%,#09090a 100%);color:#fff;font-family:Inter,Arial,sans-serif}
+header{position:sticky;top:0;z-index:5;background:rgba(8,8,9,.92);backdrop-filter:blur(12px);border-bottom:1px solid #333;padding:18px 4vw}
+.top{display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap} h1{margin:0;font-size:clamp(25px,4vw,48px)} .accent{color:var(--gold)}
+.sub{color:#ccc;margin:7px 0 0} .filters{display:flex;gap:8px;flex-wrap:wrap} .filters button,.export{border:1px solid #444;background:#19191c;color:#fff;border-radius:999px;padding:10px 16px;cursor:pointer;font-weight:700} .filters button:hover,.filters button.active{background:var(--red);border-color:var(--red)}
+.summary{display:flex;gap:14px;flex-wrap:wrap;padding:18px 4vw 0} .pill{background:#17171a;border:1px solid #333;border-radius:14px;padding:12px 16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;padding:24px 4vw 70px;max-width:1700px;margin:auto}
+.card{background:var(--card);border:1px solid #303034;border-radius:20px;overflow:hidden;box-shadow:0 16px 45px #0008;transition:.2s} .card:hover{transform:translateY(-3px);border-color:#555} .zoom{display:block;border:0;padding:0;width:100%;background:#000;cursor:zoom-in} .zoom img{display:block;width:100%;aspect-ratio:1;object-fit:cover} .body{padding:17px}
+.meta{display:flex;justify-content:space-between;color:var(--gold);font-size:12px;font-weight:900;letter-spacing:.08em} h2{font-size:22px;line-height:1.05;margin:13px 0 7px} p{margin:0 0 8px;color:#eee} small{color:#888;text-transform:uppercase} textarea{width:100%;min-height:76px;margin-top:14px;border:1px solid #3a3a3e;border-radius:12px;background:#0d0d0f;color:#fff;padding:12px;resize:vertical}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px} .actions button{border:0;border-radius:10px;padding:11px 8px;font-weight:800;cursor:pointer} .approve{background:#1f9d55;color:white} .change{background:#ffd166;color:#211400} .status{margin-top:10px;border-radius:10px;padding:8px;text-align:center;background:#29292d;color:#bbb;font-weight:800} .card.approved{border-color:#1f9d55} .card.changes{border-color:#ffd166}
+#lightbox{display:none;position:fixed;inset:0;background:#000e;z-index:20;align-items:center;justify-content:center;padding:20px} #lightbox.open{display:flex} #lightbox img{max-width:min(92vw,1000px);max-height:90vh;border-radius:14px} #close{position:absolute;right:25px;top:18px;font-size:34px;background:none;border:0;color:#fff;cursor:pointer}
+footer{padding:30px;text-align:center;color:#888} @media(max-width:600px){.grid{padding-left:14px;padding-right:14px} header{position:relative}}
+</style></head>
+<body><header><div class="top"><div><h1>Las Alitas de Siempre <span class="accent">· Agosto 2026</span></h1><p class="sub">30 propuestas visuales · revisión antes de programar Facebook</p></div><div class="filters"><button class="active" onclick="filterCards('all',this)">Todas</button><button onclick="filterCards('promo',this)">Promos</button><button onclick="filterCards('lifestyle',this)">Lifestyle</button><button onclick="filterCards('brand',this)">Brand/Product</button><button class="export" onclick="exportReview()">Exportar revisión</button></div></div></header>
+<div class="summary"><div class="pill">Total: <b>30</b></div><div class="pill">Aprobadas: <b id="approvedCount">0</b></div><div class="pill">Cambios: <b id="changesCount">0</b></div><div class="pill">Pendientes: <b id="pendingCount">30</b></div></div>
+<main class="grid"><article class="card" data-category="brand" data-day="1">
+      <button class="zoom" onclick="openLightbox(1)" aria-label="Ampliar día 1"><img src="posts/august-01.png?v=202608" alt="Día 1: HOY MANDA EL ANTOJO" loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 01</span><span>SÁBADO · 2026-08-01</span></div>
+        <h2>HOY MANDA EL ANTOJO</h2>
+        <p>Buffalo, BBQ o Lemon Pepper</p>
+        <small>approved-pilot</small>
+        <textarea id="note-1" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(1,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(1,'changes')">✎ Pedir cambios</button>
         </div>
-      </div>`;
-  });
-
-  if (currentWeek !== 0) html += '</div>';
-
-  container.innerHTML = html;
-  updateStats();
-}
-
-// ─── ACTIONS ───
-function loadState() {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-  } catch (e) {
-    console.warn('No se pudo cargar el estado guardado:', e);
-    return {};
-  }
-}
-
-function persistState() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-}
-
-function captureVisibleNotes() {
-  document.querySelectorAll('.card-notes').forEach(textarea => {
-    const id = Number(textarea.id.replace('notes-', ''));
-    saveNote(id, textarea.value, false);
-  });
-  persistState();
-}
-
-function saveNote(id, notes, persist = true) {
-  state[id] = { ...(state[id] || {}), notes };
-  if (persist) persistState();
-}
-
-function approve(id) {
-  const notes = document.getElementById(`notes-${id}`).value;
-  state[id] = { ...(state[id] || {}), approved: true, notes };
-  persistState();
-  render();
-}
-
-function skip(id) {
-  const notes = document.getElementById(`notes-${id}`).value;
-  state[id] = { ...(state[id] || {}), approved: false, notes };
-  persistState();
-  render();
-}
-
-function reset(id) {
-  const notes = document.getElementById(`notes-${id}`).value;
-  state[id] = { ...(state[id] || {}), approved: null, notes };
-  persistState();
-  render();
-}
-
-function updateStats() {
-  const approved = Object.values(state).filter(s => s.approved === true).length;
-  const skipped = Object.values(state).filter(s => s.approved === false).length;
-  document.getElementById('approved-count').textContent = approved;
-  document.getElementById('pending-count').textContent = 30 - approved - skipped;
-}
-
-// ─── FILTER ───
-document.getElementById('filter-bar').addEventListener('click', function(e) {
-  if (e.target.classList.contains('filter-btn')) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    e.target.classList.add('active');
-    currentFilter = e.target.dataset.filter;
-    render();
-  }
-});
-
-// ─── EXPORT ───
-function exportJSON() {
-  const result = posts.map(p => ({
-    id: p.id,
-    day: p.day,
-    week: p.week,
-    type: p.type,
-    title: p.title,
-    approved: state[p.id]?.approved === true ? true : state[p.id]?.approved === false ? false : null,
-    notes: state[p.id]?.notes || '',
-    image: `posts/${p.img}.png`,
-    facebook: 'https://www.facebook.com/lasalitasdesiempreoficial',
-    menu: 'https://app.lasalitasdesiempre.com/homemenu'
-  }));
-  const blob = new Blob([JSON.stringify(result, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'las-alitas-aprobacion.json';
-  a.click();
-  URL.revokeObjectURL(url);
-}
-
-// ─── WHATSAPP ───
-function sendWhatsApp() {
-  const approved = posts.filter(p => state[p.id]?.approved === true);
-  const notes = posts.filter(p => state[p.id]?.notes).map(p => `#${p.id}: ${state[p.id].notes}`);
-  const skipped = posts.filter(p => state[p.id]?.approved === false).length;
-  let msg = '📋 *APROBACIÓN LAS ALITAS DE SIEMPRE*%0A%0A';
-  msg += `✅ Aprobados: ${approved.length}/30%0A`;
-  msg += `⏳ Pendientes: ${30 - approved.length - skipped}/30%0A%0A`;
-  if (notes.length) {
-    msg += '📝 *NOTAS:*%0A' + notes.join('%0A') + '%0A%0A';
-  }
-  msg += '🔗 https://bunkercreativomx-maker.github.io/las-alitas-de-siempre/';
-  window.open(`https://wa.me/526564535107?text=${msg}`, '_blank');
-}
-
-// ─── TELEGRAM ───
-function sendTelegram() {
-  const approved = posts.filter(p => state[p.id]?.approved === true);
-  const notes = posts.filter(p => state[p.id]?.notes).map(p => `#${p.id}: ${state[p.id].notes}`);
-  const skipped = posts.filter(p => state[p.id]?.approved === false).length;
-  let msg = '📋 APROBACIÓN LAS ALITAS DE SIEMPRE\n\n';
-  msg += `✅ Aprobados: ${approved.length}/30\n`;
-  msg += `⏳ Pendientes: ${30 - approved.length - skipped}/30\n\n`;
-  if (notes.length) {
-    msg += '📝 NOTAS:\n' + notes.join('\n') + '\n\n';
-  }
-  msg += '🔗 https://bunkercreativomx-maker.github.io/las-alitas-de-siempre/';
-  window.open(`https://t.me/share/url?url=https://bunkercreativomx-maker.github.io/las-alitas-de-siempre/&text=${encodeURIComponent(msg)}`, '_blank');
-}
-
-// ─── INIT ───
-render();
-</script>
-</body>
-</html>
+        <div class="status" id="status-1">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="lifestyle" data-day="2">
+      <button class="zoom" onclick="openLightbox(2)" aria-label="Ampliar día 2"><img src="posts/august-02.png?v=202608" alt="Día 2: DOMINGO PARA COMPARTIR" loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 02</span><span>DOMINGO · 2026-08-02</span></div>
+        <h2>DOMINGO PARA COMPARTIR</h2>
+        <p>Haz espacio en la mesa</p>
+        <small>lifestyle</small>
+        <textarea id="note-2" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(2,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(2,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-2">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="promo" data-day="3">
+      <button class="zoom" onclick="openLightbox(3)" aria-label="Ampliar día 3"><img src="posts/august-03.png?v=202608" alt="Día 3: LUNES CON PAPAS GRATIS" loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 03</span><span>LUNES · 2026-08-03</span></div>
+        <h2>LUNES CON PAPAS GRATIS</h2>
+        <p>Con tu burger</p>
+        <small>product-editorial</small>
+        <textarea id="note-3" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(3,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(3,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-3">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="promo" data-day="4">
+      <button class="zoom" onclick="openLightbox(4)" aria-label="Ampliar día 4"><img src="posts/august-04.png?v=202608" alt="Día 4: BONELESS PARA 2 · $199" loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 04</span><span>MARTES · 2026-08-04</span></div>
+        <h2>BONELESS PARA 2 · $199</h2>
+        <p>Martes de compartir</p>
+        <small>flatlay</small>
+        <textarea id="note-4" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(4,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(4,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-4">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="promo" data-day="5">
+      <button class="zoom" onclick="openLightbox(5)" aria-label="Ampliar día 5"><img src="posts/august-05.png?v=202608" alt="Día 5: HOY LAS PAPAS VAN GRATIS" loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 05</span><span>MIÉRCOLES · 2026-08-05</span></div>
+        <h2>HOY LAS PAPAS VAN GRATIS</h2>
+        <p>Con tus boneless</p>
+        <small>macro</small>
+        <textarea id="note-5" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(5,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(5,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-5">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="promo" data-day="6">
+      <button class="zoom" onclick="openLightbox(6)" aria-label="Ampliar día 6"><img src="posts/august-06.png?v=202608" alt="Día 6: 1 KG + PAPAS · $320" loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 06</span><span>JUEVES · 2026-08-06</span></div>
+        <h2>1 KG + PAPAS · $320</h2>
+        <p>Jueves en grande</p>
+        <small>abundance</small>
+        <textarea id="note-6" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(6,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(6,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-6">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="lifestyle" data-day="7">
+      <button class="zoom" onclick="openLightbox(7)" aria-label="Ampliar día 7"><img src="posts/august-07.png?v=202608" alt="Día 7: VIERNES SIN COCINAR" loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 07</span><span>VIERNES · 2026-08-07</span></div>
+        <h2>VIERNES SIN COCINAR</h2>
+        <p>Tú llamas. Nosotros cocinamos.</p>
+        <small>lifestyle</small>
+        <textarea id="note-7" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(7,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(7,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-7">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="brand" data-day="8">
+      <button class="zoom" onclick="openLightbox(8)" aria-label="Ampliar día 8"><img src="posts/august-08.png?v=202608" alt="Día 8: CRUNCH EN PRIMER PLANO" loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 08</span><span>SÁBADO · 2026-08-08</span></div>
+        <h2>CRUNCH EN PRIMER PLANO</h2>
+        <p>¿Buffalo, BBQ o Lemon Pepper?</p>
+        <small>macro</small>
+        <textarea id="note-8" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(8,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(8,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-8">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="lifestyle" data-day="9">
+      <button class="zoom" onclick="openLightbox(9)" aria-label="Ampliar día 9"><img src="posts/august-09.png?v=202608" alt="Día 9: EL PLAN ES QUEDARSE" loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 09</span><span>DOMINGO · 2026-08-09</span></div>
+        <h2>EL PLAN ES QUEDARSE</h2>
+        <p>Boneless, película y familia</p>
+        <small>lifestyle</small>
+        <textarea id="note-9" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(9,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(9,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-9">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="promo" data-day="10">
+      <button class="zoom" onclick="openLightbox(10)" aria-label="Ampliar día 10"><img src="posts/august-10.png?v=202608" alt="Día 10: TU BURGER PIDE PAPAS" loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 10</span><span>LUNES · 2026-08-10</span></div>
+        <h2>TU BURGER PIDE PAPAS</h2>
+        <p>Hoy van gratis</p>
+        <small>product-editorial</small>
+        <textarea id="note-10" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(10,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(10,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-10">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="promo" data-day="11">
+      <button class="zoom" onclick="openLightbox(11)" aria-label="Ampliar día 11"><img src="posts/august-11.png?v=202608" alt="Día 11: DOS PERSONAS. $199." loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 11</span><span>MARTES · 2026-08-11</span></div>
+        <h2>DOS PERSONAS. $199.</h2>
+        <p>Elige la salsa</p>
+        <small>flatlay</small>
+        <textarea id="note-11" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(11,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(11,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-11">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="promo" data-day="12">
+      <button class="zoom" onclick="openLightbox(12)" aria-label="Ampliar día 12"><img src="posts/august-12.png?v=202608" alt="Día 12: BONELESS + PAPAS GRATIS" loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 12</span><span>MIÉRCOLES · 2026-08-12</span></div>
+        <h2>BONELESS + PAPAS GRATIS</h2>
+        <p>Miércoles resuelto</p>
+        <small>social-native</small>
+        <textarea id="note-12" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(12,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(12,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-12">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="promo" data-day="13">
+      <button class="zoom" onclick="openLightbox(13)" aria-label="Ampliar día 13"><img src="posts/august-13.png?v=202608" alt="Día 13: ANTOJO TAMAÑO KILO" loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 13</span><span>JUEVES · 2026-08-13</span></div>
+        <h2>ANTOJO TAMAÑO KILO</h2>
+        <p>Boneless + papas · $320</p>
+        <small>abundance</small>
+        <textarea id="note-13" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(13,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(13,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-13">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="brand" data-day="14">
+      <button class="zoom" onclick="openLightbox(14)" aria-label="Ampliar día 14"><img src="posts/august-14.png?v=202608" alt="Día 14: ¿QUÉ SALSA ERES?" loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 14</span><span>VIERNES · 2026-08-14</span></div>
+        <h2>¿QUÉ SALSA ERES?</h2>
+        <p>Suave, media o extrema</p>
+        <small>flavor-guide</small>
+        <textarea id="note-14" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(14,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(14,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-14">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="lifestyle" data-day="15">
+      <button class="zoom" onclick="openLightbox(15)" aria-label="Ampliar día 15"><img src="posts/august-15.png?v=202608" alt="Día 15: SÁBADO DE MESA LLENA" loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 15</span><span>SÁBADO · 2026-08-15</span></div>
+        <h2>SÁBADO DE MESA LLENA</h2>
+        <p>Aquí sí alcanza</p>
+        <small>lifestyle</small>
+        <textarea id="note-15" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(15,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(15,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-15">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="lifestyle" data-day="16">
+      <button class="zoom" onclick="openLightbox(16)" aria-label="Ampliar día 16"><img src="posts/august-16.png?v=202608" alt="Día 16: DOMINGO EN MODO FAMILIA" loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 16</span><span>DOMINGO · 2026-08-16</span></div>
+        <h2>DOMINGO EN MODO FAMILIA</h2>
+        <p>Pide y recoge</p>
+        <small>lifestyle</small>
+        <textarea id="note-16" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(16,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(16,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-16">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="promo" data-day="17">
+      <button class="zoom" onclick="openLightbox(17)" aria-label="Ampliar día 17"><img src="posts/august-17.png?v=202608" alt="Día 17: BURGER HOY. PAPAS GRATIS." loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 17</span><span>LUNES · 2026-08-17</span></div>
+        <h2>BURGER HOY. PAPAS GRATIS.</h2>
+        <p>Lunes bien servido</p>
+        <small>product-editorial</small>
+        <textarea id="note-17" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(17,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(17,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-17">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="promo" data-day="18">
+      <button class="zoom" onclick="openLightbox(18)" aria-label="Ampliar día 18"><img src="posts/august-18.png?v=202608" alt="Día 18: MARTES PARA DOS · $199" loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 18</span><span>MARTES · 2026-08-18</span></div>
+        <h2>MARTES PARA DOS · $199</h2>
+        <p>Boneless y papas</p>
+        <small>flatlay</small>
+        <textarea id="note-18" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(18,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(18,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-18">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="promo" data-day="19">
+      <button class="zoom" onclick="openLightbox(19)" aria-label="Ampliar día 19"><img src="posts/august-19.png?v=202608" alt="Día 19: LAS PAPAS CORREN POR LA CASA" loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 19</span><span>MIÉRCOLES · 2026-08-19</span></div>
+        <h2>LAS PAPAS CORREN POR LA CASA</h2>
+        <p>Con tus boneless</p>
+        <small>playful-product</small>
+        <textarea id="note-19" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(19,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(19,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-19">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="promo" data-day="20">
+      <button class="zoom" onclick="openLightbox(20)" aria-label="Ampliar día 20"><img src="posts/august-20.png?v=202608" alt="Día 20: JUEVES DE 1 KG · $320" loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 20</span><span>JUEVES · 2026-08-20</span></div>
+        <h2>JUEVES DE 1 KG · $320</h2>
+        <p>Boneless + papas</p>
+        <small>abundance</small>
+        <textarea id="note-20" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(20,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(20,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-20">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="brand" data-day="21">
+      <button class="zoom" onclick="openLightbox(21)" aria-label="Ampliar día 21"><img src="posts/august-21.png?v=202608" alt="Día 21: DEL TAZÓN A TU MESA" loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 21</span><span>VIERNES · 2026-08-21</span></div>
+        <h2>DEL TAZÓN A TU MESA</h2>
+        <p>Recién bañadas en salsa</p>
+        <small>kitchen</small>
+        <textarea id="note-21" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(21,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(21,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-21">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="brand" data-day="22">
+      <button class="zoom" onclick="openLightbox(22)" aria-label="Ampliar día 22"><img src="posts/august-22.png?v=202608" alt="Día 22: MEZCLA. PRUEBA. REPITE." loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 22</span><span>SÁBADO · 2026-08-22</span></div>
+        <h2>MEZCLA. PRUEBA. REPITE.</h2>
+        <p>Tu combinación manda</p>
+        <small>flavor-guide</small>
+        <textarea id="note-22" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(22,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(22,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-22">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="lifestyle" data-day="23">
+      <button class="zoom" onclick="openLightbox(23)" aria-label="Ampliar día 23"><img src="posts/august-23.png?v=202608" alt="Día 23: HOY NO SE COCINA" loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 23</span><span>DOMINGO · 2026-08-23</span></div>
+        <h2>HOY NO SE COCINA</h2>
+        <p>Solo se disfruta</p>
+        <small>lifestyle</small>
+        <textarea id="note-23" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(23,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(23,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-23">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="promo" data-day="24">
+      <button class="zoom" onclick="openLightbox(24)" aria-label="Ampliar día 24"><img src="posts/august-24.png?v=202608" alt="Día 24: LUNES DE CRISPY CHICKEN" loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 24</span><span>LUNES · 2026-08-24</span></div>
+        <h2>LUNES DE CRISPY CHICKEN</h2>
+        <p>Papas gratis</p>
+        <small>product-editorial</small>
+        <textarea id="note-24" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(24,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(24,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-24">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="promo" data-day="25">
+      <button class="zoom" onclick="openLightbox(25)" aria-label="Ampliar día 25"><img src="posts/august-25.png?v=202608" alt="Día 25: BONELESS PARA 2 · $199" loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 25</span><span>MARTES · 2026-08-25</span></div>
+        <h2>BONELESS PARA 2 · $199</h2>
+        <p>Dos salsas. Un plan.</p>
+        <small>social-native</small>
+        <textarea id="note-25" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(25,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(25,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-25">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="promo" data-day="26">
+      <button class="zoom" onclick="openLightbox(26)" aria-label="Ampliar día 26"><img src="posts/august-26.png?v=202608" alt="Día 26: MIÉRCOLES CON EXTRA CRUNCH" loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 26</span><span>MIÉRCOLES · 2026-08-26</span></div>
+        <h2>MIÉRCOLES CON EXTRA CRUNCH</h2>
+        <p>Papas gratis con boneless</p>
+        <small>macro</small>
+        <textarea id="note-26" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(26,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(26,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-26">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="promo" data-day="27">
+      <button class="zoom" onclick="openLightbox(27)" aria-label="Ampliar día 27"><img src="posts/august-27.png?v=202608" alt="Día 27: 1 KG. 3 SABORES. $320." loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 27</span><span>JUEVES · 2026-08-27</span></div>
+        <h2>1 KG. 3 SABORES. $320.</h2>
+        <p>Jueves para compartir</p>
+        <small>abundance</small>
+        <textarea id="note-27" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(27,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(27,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-27">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="brand" data-day="28">
+      <button class="zoom" onclick="openLightbox(28)" aria-label="Ampliar día 28"><img src="posts/august-28.png?v=202608" alt="Día 28: TU ANTOJO YA ESTÁ LISTO" loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 28</span><span>VIERNES · 2026-08-28</span></div>
+        <h2>TU ANTOJO YA ESTÁ LISTO</h2>
+        <p>Llama y recoge</p>
+        <small>pickup</small>
+        <textarea id="note-28" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(28,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(28,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-28">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="brand" data-day="29">
+      <button class="zoom" onclick="openLightbox(29)" aria-label="Ampliar día 29"><img src="posts/august-29.png?v=202608" alt="Día 29: ELIGE TU NIVEL" loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 29</span><span>SÁBADO · 2026-08-29</span></div>
+        <h2>ELIGE TU NIVEL</h2>
+        <p>Suave · Medio · Extremo</p>
+        <small>flavor-guide</small>
+        <textarea id="note-29" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(29,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(29,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-29">Pendiente</div>
+      </div>
+    </article><article class="card" data-category="brand" data-day="30">
+      <button class="zoom" onclick="openLightbox(30)" aria-label="Ampliar día 30"><img src="posts/august-30.png?v=202608" alt="Día 30: AGOSTO TERMINA. EL ANTOJO NO." loading="lazy"></button>
+      <div class="body">
+        <div class="meta"><span>DÍA 30</span><span>DOMINGO · 2026-08-30</span></div>
+        <h2>AGOSTO TERMINA. EL ANTOJO NO.</h2>
+        <p>Nos vemos en la mesa</p>
+        <small>campaign-finale</small>
+        <textarea id="note-30" placeholder="Escribe cambios específicos para esta pieza..."></textarea>
+        <div class="actions">
+          <button class="approve" onclick="setStatus(30,'approved')">✓ Aprobar</button>
+          <button class="change" onclick="setStatus(30,'changes')">✎ Pedir cambios</button>
+        </div>
+        <div class="status" id="status-30">Pendiente</div>
+      </div>
+    </article></main>
+<div id="lightbox" onclick="closeLightbox()"><button id="close">×</button><img id="lightboxImg" alt="Vista ampliada"></div>
+<footer>No se programará ninguna publicación hasta la aprobación final de Pako.</footer>
+<script>
+const KEY='alitas-august-2026-review'; let review=JSON.parse(localStorage.getItem(KEY)||'{}');
+function save(){localStorage.setItem(KEY,JSON.stringify(review));updateUI()}
+function setStatus(day,status){review[day]=review[day]||{};review[day].status=status;review[day].note=document.getElementById('note-'+day).value;save()}
+function updateUI(){let a=0,c=0;document.querySelectorAll('.card').forEach(card=>{let d=card.dataset.day,s=review[d]?.status||'pending';card.classList.remove('approved','changes');if(s!=='pending')card.classList.add(s);document.getElementById('status-'+d).textContent=s==='approved'?'✓ Aprobada':s==='changes'?'✎ Requiere cambios':'Pendiente';if(review[d]?.note!==undefined)document.getElementById('note-'+d).value=review[d].note;if(s==='approved')a++;if(s==='changes')c++;});document.getElementById('approvedCount').textContent=a;document.getElementById('changesCount').textContent=c;document.getElementById('pendingCount').textContent=30-a-c}
+function filterCards(cat,btn){document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.card').forEach(c=>c.style.display=cat==='all'||c.dataset.category===cat?'block':'none')}
+function openLightbox(day){document.getElementById('lightboxImg').src=`posts/august-${String(day).padStart(2,'0')}.png?v=202608`;document.getElementById('lightbox').classList.add('open')} function closeLightbox(){document.getElementById('lightbox').classList.remove('open')}
+function exportReview(){document.querySelectorAll('.card').forEach(card=>{let d=card.dataset.day;review[d]=review[d]||{status:'pending'};review[d].note=document.getElementById('note-'+d).value});save();let blob=new Blob([JSON.stringify(review,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='revision-las-alitas-agosto-2026.json';a.click()}
+document.querySelectorAll('textarea').forEach(t=>t.addEventListener('change',()=>{let d=t.id.split('-')[1];review[d]=review[d]||{status:'pending'};review[d].note=t.value;save()}));updateUI();
+</script></body></html>
